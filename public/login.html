@@ -4,291 +4,474 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Entrar - Couple Hub</title>
-<link rel="stylesheet" href="/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ig-blue: #0095f6;
-    --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    --bg: #fafafa;
-    --card-bg: #ffffff;
-    --text: #262626;
-    --text-secondary: #8e8e8e;
-    --border: #dbdbdb;
-    --input-bg: #fafafa;
+    --bg: #0a0a0f;
+    --bg-elevated: #11111a;
+    --card: #16161f;
+    --card-hover: #1a1a25;
+    --border: #2a2a3a;
+    --text: #fafafa;
+    --text-muted: #8b8b9e;
+    --primary: #f43f5e;
+    --primary-glow: #fb7185;
+    --secondary: #a855f7;
+    --accent: #06b6d4;
+    --gold: #fbbf24;
+    --gradient-1: linear-gradient(135deg, #f43f5e 0%, #a855f7 50%, #06b6d4 100%);
+    --gradient-2: linear-gradient(135deg, #1e1e2e 0%, #0f0f1a 100%);
+    --gradient-3: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
+    --shadow-glow: 0 0 40px rgba(244,63,94,0.3), 0 0 80px rgba(168,85,247,0.2);
+    --shadow-card: 0 10px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 40px 20px;
+    line-height: 1.6;
+    position: relative;
+    overflow: hidden;
   }
 
-  .login-container {
+  /* Animated background */
+  .bg-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--bg);
+  }
+
+  .bg-layer::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: 
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(244,63,94,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 30%, rgba(168,85,247,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 60% at 50% 80%, rgba(6,182,212,0.05) 0%, transparent 50%);
+    animation: bgShift 20s ease-in-out infinite;
+  }
+
+  .bg-layer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(244,63,94,0.03) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(168,85,247,0.03) 1px, transparent 1px);
+    background-size: 60px 60px, 80px 80px;
+    animation: gridMove 30s linear infinite;
+  }
+
+  @keyframes bgShift {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-2%, 2%) rotate(1deg); }
+    66% { transform: translate(2%, -1%) rotate(-1deg); }
+  }
+
+  @keyframes gridMove {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 60px 60px, -80px -80px; }
+  }
+
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: -1;
+    animation: orbFloat 15s ease-in-out infinite;
+  }
+
+  .orb-1 { width: 350px; height: 350px; background: #f43f5e; top: -80px; right: -80px; animation-delay: 0s; }
+  .orb-2 { width: 250px; height: 250px; background: #a855f7; bottom: -40px; left: -40px; animation-delay: -5s; }
+  .orb-3 { width: 180px; height: 180px; background: #06b6d4; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -10s; }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(25px, -15px) scale(1.05); }
+    50% { transform: translate(-15px, 25px) scale(0.95); }
+    75% { transform: translate(15px, 15px) scale(1.02); }
+  }
+
+  /* Login Card */
+  .login-wrapper {
     width: 100%;
-    max-width: 350px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    max-width: 420px;
+    position: relative;
+    z-index: 1;
   }
 
   .login-card {
-    background: var(--card-bg);
+    background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 40px 40px 24px;
-    width: 100%;
-    margin-bottom: 12px;
+    border-radius: 24px;
+    padding: 48px 40px 40px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .login-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gradient-1);
+  }
+
+  .login-card::after {
+    content: '';
+    position: absolute;
+    top: -50%; right: -50%;
+    width: 100%; height: 100%;
+    background: var(--gradient-1);
+    opacity: 0.02;
+    border-radius: 50%;
+    pointer-events: none;
   }
 
   .logo-login {
-    display: block;
-    margin: 0 auto 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
   }
 
-  .logo-login svg {
-    width: 175px;
-    height: auto;
+  .logo-login .logo-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--gradient-1);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: var(--shadow-glow);
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: var(--shadow-glow); }
+    50% { box-shadow: 0 0 60px rgba(244,63,94,0.5), 0 0 120px rgba(168,85,247,0.3); }
+  }
+
+  .logo-login .logo-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .welcome-text {
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .welcome-text h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .welcome-text p {
+    color: var(--text-muted);
+    font-size: 15px;
   }
 
   .form-group {
-    margin-bottom: 6px;
+    margin-bottom: 20px;
     position: relative;
+    z-index: 1;
   }
 
   .form-group label {
-    display: none; /* Labels ocultos, usamos placeholder */
+    display: none;
   }
 
   .form-group input {
     width: 100%;
-    padding: 12px 12px;
-    background: var(--input-bg);
+    padding: 16px 16px;
+    background: var(--bg-elevated);
     border: 1px solid var(--border);
-    border-radius: 4px;
-    font-size: 14px;
+    border-radius: 12px;
+    font-size: 15px;
     color: var(--text);
+    font-family: inherit;
     outline: none;
-    transition: border-color 0.2s, background 0.2s;
+    transition: all 0.3s;
   }
 
   .form-group input:focus {
-    border-color: var(--ig-blue);
-    background: #fff;
+    border-color: var(--primary);
+    background: var(--card);
+    box-shadow: 0 0 0 4px rgba(244,63,94,0.15);
   }
 
   .form-group input::placeholder {
-    color: var(--text-secondary);
+    color: var(--text-muted);
   }
 
   .form-group input[type="password"] {
-    padding-right: 44px;
+    padding-right: 52px;
   }
 
   .toggle-password {
     position: absolute;
-    right: 12px;
+    right: 14px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     cursor: pointer;
-    padding: 4px;
+    padding: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: color 0.2s;
+    z-index: 2;
   }
 
   .toggle-password:hover { color: var(--text); }
-  .toggle-password svg { width: 20px; height: 20px; }
+
+  .toggle-password svg { width: 22px; height: 22px; }
 
   .btn-login {
     width: 100%;
-    padding: 12px;
+    padding: 16px;
     margin-top: 8px;
     border: none;
-    border-radius: 4px;
-    background: var(--ig-blue);
-    color: #fff;
-    font-size: 14px;
+    border-radius: 12px;
+    background: var(--gradient-3);
+    color: white;
+    font-size: 15px;
     font-weight: 600;
+    font-family: inherit;
     cursor: pointer;
-    transition: background 0.2s;
-    opacity: 1;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(244,63,94,0.4);
+    position: relative;
+    z-index: 1;
   }
 
-  .btn-login:hover { background: #0077cc; }
+  .btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(244,63,94,0.5);
+  }
+
+  .btn-login:active { transform: translateY(0); }
   .btn-login:disabled {
-    background: rgba(0,149,246,0.3);
+    opacity: 0.5;
     cursor: not-allowed;
+    transform: none;
   }
 
   .divider {
     display: flex;
     align-items: center;
-    margin: 20px 0;
-    color: var(--text-secondary);
-    font-size: 13px;
+    gap: 16px;
+    margin: 28px 0;
+    position: relative;
+    z-index: 1;
   }
 
   .divider::before,
   .divider::after {
-    content: "";
+    content: '';
     flex: 1;
     height: 1px;
     background: var(--border);
   }
 
-  .divider span { padding: 0 16px; }
+  .divider span {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
 
   .btn-facebook {
     width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 4px;
-    background: transparent;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-elevated);
     color: #385185;
     font-size: 14px;
     font-weight: 600;
+    font-family: inherit;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    transition: color 0.2s;
+    gap: 10px;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
   }
 
-  .btn-facebook:hover { color: #2d4373; }
+  .btn-facebook:hover {
+    border-color: #385185;
+    background: rgba(56,81,133,0.1);
+    color: #4a6bc1;
+  }
+
+  .btn-facebook svg { width: 20px; height: 20px; }
 
   .forgot-password {
     display: block;
     text-align: center;
-    margin-top: 16px;
-    color: var(--ig-blue);
-    font-size: 12px;
+    margin-top: 20px;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 500;
     text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+    z-index: 1;
   }
 
-  .forgot-password:hover { text-decoration: underline; }
+  .forgot-password:hover { color: var(--primary-glow); text-decoration: underline; }
 
   .mensagem {
-    margin: 12px 0;
-    padding: 12px 16px;
-    border-radius: 6px;
+    margin: 16px 0;
+    padding: 14px 18px;
+    border-radius: 10px;
     font-size: 14px;
     text-align: center;
     display: none;
+    animation: slideIn 0.3s ease-out;
+    position: relative;
+    z-index: 1;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .mensagem:not(:empty) { display: block; }
-  .mensagem.erro { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-  .mensagem.sucesso { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+  .mensagem.erro { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+  .mensagem.sucesso { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #86efac; }
 
   .signup-prompt {
-    background: var(--card-bg);
+    background: var(--bg-elevated);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 20px;
+    border-radius: 16px;
+    padding: 24px;
     text-align: center;
     font-size: 14px;
     color: var(--text);
+    margin-top: 24px;
+    position: relative;
+    z-index: 1;
   }
 
   .signup-prompt a {
-    color: var(--ig-blue);
+    color: var(--primary);
     font-weight: 600;
     text-decoration: none;
+    transition: color 0.2s;
   }
 
-  .signup-prompt a:hover { text-decoration: underline; }
+  .signup-prompt a:hover { color: var(--primary-glow); text-decoration: underline; }
 
-  .app-download {
-    margin-top: 24px;
-    text-align: center;
-  }
-
-  .app-download p {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-bottom: 16px;
-  }
-
-  .app-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-  }
-
-  .app-buttons img {
-    height: 40px;
-    width: auto;
-  }
-
-  footer {
+  /* Footer */
+  .page-footer {
     margin-top: 40px;
-    padding: 0 20px 20px;
+    padding: 0 20px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
   }
 
   .footer-links {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px 16px;
+    gap: 8px 20px;
     margin-bottom: 16px;
   }
 
   .footer-links a {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     text-decoration: none;
     font-size: 12px;
+    transition: color 0.2s;
   }
 
-  .footer-links a:hover { text-decoration: underline; color: var(--text); }
+  .footer-links a:hover { color: var(--primary); text-decoration: underline; }
 
   .footer-copyright {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-size: 12px;
-    text-align: center;
   }
 
-  @media (max-width: 400px) {
-    .login-card { padding: 32px 24px 20px; }
-    .logo-login svg { width: 150px; }
+  /* Responsive */
+  @media (max-width: 480px) {
+    .login-card { padding: 40px 24px 32px; }
+    .logo-login .logo-text { font-size: 22px; }
+    .welcome-text h1 { font-size: 24px; }
+    .btn-login { padding: 14px; font-size: 14px; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>
 </head>
 <body>
 
-<div class="login-container">
+<div class="bg-layer"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="login-wrapper">
   <div class="login-card">
-    <a href="/" class="logo-login" aria-label="Couple Hub">
-      <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.153 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="url(#loginGrad)" stroke-width="2"/>
-        <ellipse cx="87.5" cy="25.5" rx="14.5" ry="14.5" stroke="url(#loginGrad)" stroke-width="2"/>
-        <circle cx="129.5" cy="13.5" r="4.5" fill="url(#loginGrad)"/>
-        <defs>
-          <linearGradient id="loginGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#f09433"/>
-            <stop offset="25%" style="stop-color:#e6683c"/>
-            <stop offset="50%" style="stop-color:#dc2743"/>
-            <stop offset="75%" style="stop-color:#cc2366"/>
-            <stop offset="100%" style="stop-color:#bc1888"/>
-          </linearGradient>
-        </defs>
-      </svg>
+    <a href="/" class="logo-login" aria-label="Couple Hub - Início">
+      <div class="logo-icon">💑</div>
+      <span class="logo-text">Couple Hub</span>
     </a>
+
+    <div class="welcome-text">
+      <h1>Bem-vindo de volta</h1>
+      <p>Entre para continuar sua jornada a dois</p>
+    </div>
 
     <form id="formLogin">
       <div class="form-group">
-        <label for="email">Telefone, nome de usuário ou email</label>
-        <input type="text" id="email" name="email" placeholder="Telefone, nome de usuário ou email" autocomplete="username" required>
+        <label for="email">Telefone, usuário ou email</label>
+        <input type="text" id="email" name="email" placeholder="Telefone, usuário ou email" autocomplete="username" required>
       </div>
       <div class="form-group">
         <label for="senha">Senha</label>
@@ -314,37 +497,29 @@
     </button>
 
     <a href="#" class="forgot-password">Esqueceu a senha?</a>
-  </div>
 
-  <div class="signup-prompt">
-    Não tem conta? <a href="/cadastro">Cadastrar</a>
-  </div>
-
-  <div class="app-download">
-    <p>Baixe o app</p>
-    <div class="app-buttons">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Google_Play_Store_badge_EN.svg" alt="Google Play" style="height: 40px;">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/App_Store_badge_en.svg" alt="App Store" style="height: 40px;">
+    <div class="signup-prompt">
+      Não tem conta? <a href="/cadastro">Criar conta grátis</a>
     </div>
   </div>
-</div>
 
-<footer>
-  <div class="footer-links">
-    <a href="#">Meta</a>
-    <a href="#">Sobre</a>
-    <a href="#">Blog</a>
-    <a href="#">Empregos</a>
-    <a href="#">Ajuda</a>
-    <a href="#">API</a>
-    <a href="#">Privacidade</a>
-    <a href="#">Termos</a>
-    <a href="#">Melhores contas</a>
-    <a href="#">Hashtags</a>
-    <a href="#">Idioma</a>
-  </div>
-  <p class="footer-copyright">© 2024 Couple Hub. Desenvolvido por Rubens Fernandes</p>
-</footer>
+  <footer class="page-footer">
+    <div class="footer-links">
+      <a href="#">Meta</a>
+      <a href="#">Sobre</a>
+      <a href="#">Blog</a>
+      <a href="#">Empregos</a>
+      <a href="#">Ajuda</a>
+      <a href="#">API</a>
+      <a href="#">Privacidade</a>
+      <a href="#">Termos</a>
+      <a href="#">Melhores contas</a>
+      <a href="#">Hashtags</a>
+      <a href="#">Idioma</a>
+    </div>
+    <p class="footer-copyright">© 2024 Couple Hub</p>
+  </footer>
+</div>
 
 <script>
 document.getElementById('formLogin').addEventListener('submit', async (e) => {
@@ -394,7 +569,7 @@ const eyeIcon = document.getElementById('eyeIcon');
 togglePass.addEventListener('click', () => {
   const isPassword = senhaInput.type === 'password';
   senhaInput.type = isPassword ? 'text' : 'password';
-  eyeIcon.innerHTML = isPassword 
+  eyeIcon.innerHTML = isPassword
     ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
     : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
 });
