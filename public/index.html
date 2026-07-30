@@ -3,243 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Couple Hub - Seu relacionamento, organizado</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Couple Hub • Seu relacionamento, organizado</title>
+<meta name="description" content="O primeiro hub completo para casais. Fotos, momentos, contratos, metas, finanças e muito mais. Grátis para começar.">
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --bg-elevated: #11111a;
-    --card: #16161f;
-    --card-hover: #1a1a25;
-    --border: #2a2a3a;
-    --text: #fafafa;
-    --text-muted: #8b8b9e;
-    --primary: #f43f5e;
-    --primary-glow: #fb7185;
-    --secondary: #a855f7;
-    --accent: #06b6d4;
-    --gold: #fbbf24;
-    --gradient-1: linear-gradient(135deg, #f43f5e 0%, #a855f7 50%, #06b6d4 100%);
-    --gradient-2: linear-gradient(135deg, #1e1e2e 0%, #0f0f1a 100%);
-    --gradient-3: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
-    --shadow-glow: 0 0 40px rgba(244,63,94,0.3), 0 0 80px rgba(168,85,247,0.2);
-    --shadow-card: 0 10px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03);
-    --shadow-card-hover: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(244,63,94,0.2), 0 0 60px rgba(244,63,94,0.1);
-  }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #fff;
+    color: #262626;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-
-  /* Animated background */
-  .bg-animation {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background: var(--bg);
-    overflow: hidden;
-  }
-
-  .bg-animation::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(244,63,94,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 40% at 80% 30%, rgba(168,85,247,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse 50% 60% at 50% 80%, rgba(6,182,212,0.05) 0%, transparent 50%);
-    animation: bgShift 20s ease-in-out infinite;
-  }
-
-  .bg-animation::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(244,63,94,0.03) 1px, transparent 1px),
-      radial-gradient(circle at 75% 75%, rgba(168,85,247,0.03) 1px, transparent 1px);
-    background-size: 60px 60px, 80px 80px;
-    animation: gridMove 30s linear infinite;
-  }
-
-  @keyframes bgShift {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(-2%, 2%) rotate(1deg); }
-    66% { transform: translate(2%, -1%) rotate(-1deg); }
-  }
-
-  @keyframes gridMove {
-    0% { background-position: 0 0, 0 0; }
-    100% { background-position: 60px 60px, -80px -80px; }
-  }
-
-  /* Floating orbs */
-  .orb {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: -1;
-    animation: orbFloat 15s ease-in-out infinite;
-  }
-
-  .orb-1 { width: 400px; height: 400px; background: #f43f5e; top: -100px; right: -100px; animation-delay: 0s; }
-  .orb-2 { width: 300px; height: 300px; background: #a855f7; bottom: -50px; left: -50px; animation-delay: -5s; }
-  .orb-3 { width: 200px; height: 200px; background: #06b6d4; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -10s; }
-
-  @keyframes orbFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(30px, -20px) scale(1.05); }
-    50% { transform: translate(-20px, 30px) scale(0.95); }
-    75% { transform: translate(20px, 20px) scale(1.02); }
-  }
-
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  ul { list-style: none; }
+  
   /* Header */
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    padding: 20px 40px;
+    background: #fff;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 0 20px;
+  }
+  .header-inner {
+    max-width: 975px;
+    margin: 0 auto;
+    height: 54px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(10,10,15,0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
   }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: var(--text);
-  }
-
-  .logo-icon {
-    width: 40px;
-    height: 40px;
-    background: var(--gradient-1);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    box-shadow: var(--shadow-glow);
-    animation: pulseGlow 3s ease-in-out infinite;
-  }
-
-  @keyframes pulseGlow {
-    0%, 100% { box-shadow: var(--shadow-glow); }
-    50% { box-shadow: 0 0 60px rgba(244,63,94,0.5), 0 0 120px rgba(168,85,247,0.3); }
-  }
-
-  .logo-text {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  nav ul { display: flex; gap: 8px; list-style: none; }
+  .logo-header { display: flex; align-items: center; gap: 8px; }
+  .logo-header svg { width: 103px; height: 30px; }
+  nav ul { display: flex; gap: 28px; }
   nav a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 10px 16px;
-    border-radius: 8px;
-    transition: all 0.2s;
-    position: relative;
-  }
-
-  nav a::before {
-    content: '';
-    position: absolute;
-    bottom: 6px; left: 50%;
-    width: 0; height: 2px;
-    background: var(--gradient-1);
-    transition: all 0.3s;
-    transform: translateX(-50%);
-  }
-
-  nav a:hover, nav a.active {
-    color: var(--text);
-    background: rgba(255,255,255,0.05);
-  }
-
-  nav a:hover::before, nav a.active::before { width: 60%; }
-
-  .header-actions { display: flex; gap: 12px; }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border-radius: 10px;
+    color: #8e8e8e;
     font-size: 14px;
     font-weight: 600;
-    text-decoration: none;
-    border: none;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  nav a:hover, nav a.active { color: #262626; border-color: #262626; }
+  .header-actions { display: flex; align-items: center; gap: 12px; }
+  .btn {
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
+    transition: all 0.2s;
+    border: 1px solid transparent;
   }
-
-  .btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--gradient-1);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .btn-primary {
-    background: var(--gradient-3);
-    color: white;
-    box-shadow: 0 4px 20px rgba(244,63,94,0.4);
-  }
-
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(244,63,94,0.5); }
-  .btn-primary:active { transform: translateY(0); }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
-  .btn-outline:hover { border-color: var(--primary); background: rgba(244,63,94,0.1); }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--text-muted);
-    border: none;
-    padding: 10px 16px;
-  }
-
-  .btn-ghost:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+  .btn-ghost { background: transparent; color: #262626; border-color: transparent; }
+  .btn-ghost:hover { background: #fafafa; }
+  .btn-primary { background: #0095f6; color: #fff; }
+  .btn-primary:hover { background: #0077cc; }
 
   /* Hero */
   .hero {
@@ -247,664 +69,259 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 140px 40px 80px;
-    position: relative;
+    padding: 140px 20px 80px;
+    background: #fafafa;
   }
-
-  .hero-content {
-    max-width: 900px;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: rgba(244,63,94,0.1);
-    border: 1px solid rgba(244,63,94,0.3);
-    border-radius: 50px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--primary-glow);
-    margin-bottom: 32px;
-    animation: slideUp 0.8s ease-out;
-  }
-
-  .hero-badge .dot {
-    width: 8px; height: 8px;
-    background: var(--primary);
-    border-radius: 50%;
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
+  .hero-inner { max-width: 700px; text-align: center; }
+  .hero-logo { margin-bottom: 32px; }
+  .hero-logo svg { width: 200px; height: auto; }
   .hero h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(48px, 8vw, 80px);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 24px;
-    animation: slideUp 0.8s ease-out 0.1s both;
-  }
-
-  .hero h1 .gradient-text {
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    position: relative;
-  }
-
-  .hero h1 .gradient-text::after {
-    content: '';
-    position: absolute;
-    bottom: -8px; left: 0; right: 0;
-    height: 3px;
-    background: var(--gradient-1);
-    border-radius: 2px;
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: underlineReveal 1s ease-out 0.6s forwards;
-  }
-
-  @keyframes underlineReveal { to { transform: scaleX(1); } }
-
-  .hero p {
-    font-size: clamp(18px, 2.5vw, 24px);
-    color: var(--text-muted);
-    max-width: 600px;
-    margin: 0 auto 48px;
-    line-height: 1.7;
-    animation: slideUp 0.8s ease-out 0.2s both;
-  }
-
-  .hero-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-    animation: slideUp 0.8s ease-out 0.3s both;
-  }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Trust indicators */
-  .trust-bar {
-    margin-top: 60px;
-    padding: 32px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    animation: slideUp 0.8s ease-out 0.4s both;
-  }
-
-  .trust-items {
-    display: flex;
-    justify-content: center;
-    gap: 48px;
-    flex-wrap: wrap;
-  }
-
-  .trust-item { text-align: center; }
-  .trust-number {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 36px;
-    font-weight: 700;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .trust-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-
-  /* Features Section */
-  .features {
-    padding: 120px 40px;
-    position: relative;
-  }
-
-  .section-header {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto 80px;
-  }
-
-  .section-tag {
-    display: inline-block;
-    padding: 8px 16px;
-    background: rgba(168,85,247,0.1);
-    border: 1px solid rgba(168,85,247,0.3);
-    border-radius: 50px;
-    font-size: 13px;
+    font-size: clamp(36px, 5vw, 56px);
     font-weight: 500;
-    color: #c084fc;
-    margin-bottom: 20px;
-  }
-
-  .section-header h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(36px, 5vw, 52px);
-    font-weight: 700;
     line-height: 1.2;
+    letter-spacing: -0.5px;
     margin-bottom: 16px;
   }
+  .hero h1 span { font-weight: 300; }
+  .hero p {
+    font-size: clamp(16px, 2vw, 20px);
+    color: #8e8e8e;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+  .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hero-buttons .btn { padding: 10px 24px; font-size: 14px; }
 
-  .section-header p { font-size: 18px; color: var(--text-muted); }
-
+  /* Features */
+  .features {
+    max-width: 975px;
+    margin: 0 auto;
+    padding: 100px 20px;
+  }
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-tag {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0095f6;
+    background: rgba(0,149,246,0.1);
+    padding: 6px 14px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+  }
+  .section-header h2 {
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
   .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
   }
-
   .feature-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 40px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s;
-    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    padding: 32px;
+    text-align: left;
+    transition: box-shadow 0.2s, border-color 0.2s;
   }
-
-  .feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--gradient-1);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s;
-  }
-
-  .feature-card:hover {
-    background: var(--card-hover);
-    border-color: rgba(244,63,94,0.3);
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-card-hover);
-  }
-
-  .feature-card:hover::before { transform: scaleX(1); }
-
+  .feature-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.06); border-color: #e0e0e0; }
   .feature-icon {
-    width: 56px; height: 56px;
-    border-radius: 16px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #fafafa;
+    border: 1px solid #dbdbdb;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    margin-bottom: 24px;
-    background: var(--gradient-2);
-    border: 1px solid var(--border);
-    transition: all 0.3s;
-  }
-
-  .feature-card:hover .feature-icon {
-    background: var(--gradient-1);
-    transform: scale(1.1) rotate(3deg);
-  }
-
-  .feature-card h3 {
-    font-family: 'Space Grotesk', sans-serif;
     font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-
-  .feature-card p {
-    color: var(--text-muted);
-    font-size: 15px;
-    line-height: 1.7;
     margin-bottom: 20px;
   }
-
-  .feature-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
+  .feature-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+  .feature-card p { color: #8e8e8e; font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+  .feature-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .feature-tag {
-    padding: 6px 12px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 12px;
-    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    color: #8e8e8e;
+    background: #fafafa;
+    border: 1px solid #dbdbdb;
+    padding: 4px 10px;
+    border-radius: 4px;
     transition: all 0.2s;
   }
+  .feature-card:hover .feature-tag { border-color: #bdbdbd; color: #262626; }
 
-  .feature-card:hover .feature-tag {
-    border-color: rgba(244,63,94,0.3);
-    color: var(--primary-glow);
+  /* Demo */
+  .demo {
+    background: #fafafa;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 100px 20px;
   }
-
-  /* Demo/Preview Section */
-  .demo-section {
-    padding: 120px 40px;
-    background: var(--gradient-2);
-    position: relative;
-  }
-
-  .demo-section::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: var(--gradient-1);
-  }
-
-  .demo-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-
-  .demo-text h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(32px, 4vw, 44px);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 20px;
-  }
-
-  .demo-text p { font-size: 18px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.7; }
-
-  .demo-features {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .demo-feature {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  .demo-inner { max-width: 975px; margin: 0 auto; }
+  .demo-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .demo-text h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 500; line-height: 1.2; margin-bottom: 20px; }
+  .demo-text p { color: #8e8e8e; font-size: 16px; line-height: 1.7; margin-bottom: 32px; }
+  .demo-list { display: flex; flex-direction: column; gap: 16px; }
+  .demo-item {
+    display: flex; align-items: center; gap: 16px;
     padding: 16px 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    transition: all 0.3s;
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    transition: all 0.2s;
   }
-
-  .demo-feature:hover { border-color: rgba(244,63,94,0.3); background: var(--card-hover); }
-
-  .demo-feature-icon {
+  .demo-item:hover { border-color: #bdbdbd; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .demo-icon {
     width: 40px; height: 40px;
     border-radius: 10px;
-    background: var(--gradient-1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #fafafa;
+    border: 1px solid #dbdbdb;
+    display: flex; align-items: center; justify-content: center;
     font-size: 18px;
     flex-shrink: 0;
   }
-
-  .demo-feature span { font-weight: 500; }
-
-  .demo-visual {
-    position: relative;
-  }
-
-  .phone-mockup {
-    width: 100%;
-    max-width: 340px;
+  .demo-item span { font-weight: 500; font-size: 15px; }
+  .demo-visual { position: relative; }
+  .phone-frame {
+    width: 100%; max-width: 320px;
     margin: 0 auto;
     background: #000;
-    border-radius: 40px;
-    padding: 8px;
+    border-radius: 38px;
+    padding: 10px;
     box-shadow: 
       0 0 0 8px #1a1a1a,
       0 0 0 9px #000,
-      0 40px 80px rgba(0,0,0,0.5),
-      var(--shadow-glow);
-    position: relative;
-    transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
-    animation: phoneFloat 6s ease-in-out infinite;
+      0 40px 80px rgba(0,0,0,0.4);
   }
-
-  @keyframes phoneFloat {
-    0%, 100% { transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateY(0); }
-    50% { transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateY(-15px); }
-  }
-
   .phone-screen {
-    background: var(--bg);
-    border-radius: 32px;
+    background: #fff;
+    border-radius: 28px;
     overflow: hidden;
     aspect-ratio: 390/844;
     position: relative;
   }
+  .phone-content { padding: 24px; height: 100%; display: flex; flex-direction: column; gap: 20px; }
+  .phone-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid #dbdbdb; }
+  .phone-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #f43f5e, #a855f7); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
+  .phone-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat { text-align: center; padding: 16px; background: #fafafa; border: 1px solid #dbdbdb; border-radius: 12px; }
+  .stat-value { font-size: 22px; font-weight: 700; color: #262626; }
+  .stat-label { font-size: 10px; color: #8e8e8e; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+  .phone-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .action-btn { padding: 16px; background: #fafafa; border: 1px solid #dbdbdb; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: #262626; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+  .action-btn:hover { background: #f5f5f5; border-color: #bdbdbd; }
+  .action-btn.primary { background: #0095f6; border-color: #0095f6; color: #fff; }
+  .action-btn.primary:hover { background: #0077cc; }
+  .action-icon { font-size: 20px; }
 
-  .phone-content {
-    padding: 24px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .phone-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .phone-avatar {
-    width: 48px; height: 48px;
-    border-radius: 50%;
-    background: var(--gradient-1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 18px;
-  }
-
-  .phone-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  .stat {
-    text-align: center;
-    padding: 16px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-  }
-
-  .stat-value {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
-
-  .phone-actions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .action-btn {
-    padding: 16px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: var(--text);
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.2s;
-  }
-
-  .action-btn:hover { border-color: var(--primary); background: var(--card-hover); }
-
-  .action-btn.primary { background: var(--gradient-3); border: none; }
-
-  .action-btn-icon { font-size: 24px; }
-
-  /* CTA Section */
-  .cta-section {
-    padding: 120px 40px;
-    text-align: center;
-    position: relative;
-  }
-
-  .cta-card {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 80px 60px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 32px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-card::before {
-    content: '';
-    position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: var(--gradient-1);
-    opacity: 0.03;
-    animation: rotateBg 20s linear infinite;
-  }
-
-  @keyframes rotateBg { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-  .cta-content { position: relative; z-index: 1; }
-
-  .cta-card h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(32px, 4vw, 44px);
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
-
-  .cta-card p { font-size: 18px; color: var(--text-muted); margin-bottom: 32px; }
-
-  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  /* CTA */
+  .cta { max-width: 975px; margin: 0 auto; padding: 100px 20px; text-align: center; }
+  .cta h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 500; margin-bottom: 16px; }
+  .cta p { color: #8e8e8e; font-size: 16px; margin-bottom: 32px; }
+  .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
   /* Footer */
   footer {
-    padding: 80px 40px 40px;
-    border-top: 1px solid var(--border);
-    background: var(--bg-elevated);
+    background: #fff;
+    border-top: 1px solid #dbdbdb;
+    padding: 60px 20px 30px;
   }
-
-  .footer-grid {
-    max-width: 1200px;
-    margin: 0 auto 60px;
-    display: grid;
-    grid-template-columns: 2fr repeat(3, 1fr);
-    gap: 60px;
-  }
-
-  .footer-brand .logo { margin-bottom: 20px; }
-  .footer-brand p { color: var(--text-muted); font-size: 15px; line-height: 1.7; max-width: 300px; margin-bottom: 24px; }
-
+  .footer-inner { max-width: 975px; margin: 0 auto; }
+  .footer-grid { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
+  .footer-brand .logo-footer { margin-bottom: 20px; }
+  .footer-brand .logo-footer svg { width: 140px; height: auto; }
+  .footer-brand p { color: #8e8e8e; font-size: 14px; line-height: 1.6; max-width: 280px; margin-bottom: 24px; }
   .social-links { display: flex; gap: 12px; }
-
-  .social-link {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .social-link:hover { border-color: var(--primary); color: var(--primary); background: rgba(244,63,94,0.1); transform: translateY(-2px); }
-
-  .footer-column h4 {
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-  }
-
-  .footer-column ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-
-  .footer-column a {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.2s;
-  }
-
-  .footer-column a:hover { color: var(--primary); }
-
-  .footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 30px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .footer-bottom p { color: var(--text-muted); font-size: 13px; }
-
+  .social-link { width: 36px; height: 36px; border-radius: 8px; background: #fafafa; border: 1px solid #dbdbdb; display: flex; align-items: center; justify-content: center; color: #8e8e8e; transition: all 0.2s; }
+  .social-link:hover { background: #f5f5f5; border-color: #bdbdbd; color: #262626; }
+  .social-link svg { width: 18px; height: 18px; }
+  .footer-col h4 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #8e8e8e; margin-bottom: 20px; }
+  .footer-col ul { display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a { color: #262626; font-size: 14px; transition: color 0.2s; }
+  .footer-col a:hover { color: #8e8e8e; }
+  .footer-bottom { padding-top: 30px; border-top: 1px solid #dbdbdb; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-bottom p { color: #8e8e8e; font-size: 12px; }
   .footer-legal { display: flex; gap: 24px; }
-  .footer-legal a { color: var(--text-muted); text-decoration: none; font-size: 13px; }
-  .footer-legal a:hover { color: var(--primary); }
+  .footer-legal a { color: #8e8e8e; font-size: 12px; transition: color 0.2s; }
+  .footer-legal a:hover { color: #262626; }
 
   /* Responsive */
-  @media (max-width: 1024px) {
+  @media (max-width: 880px) {
     .demo-content { grid-template-columns: 1fr; gap: 40px; }
     .demo-visual { order: -1; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-  }
-
-  @media (max-width: 768px) {
-    header { padding: 16px 20px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-brand { grid-column: span 2; }
     nav ul { display: none; }
-    .hero { padding: 120px 20px 60px; }
-    .features { padding: 80px 20px; }
-    .demo-section { padding: 80px 20px; }
-    .cta-section { padding: 80px 20px; }
-    .cta-card { padding: 50px 30px; }
-    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  @media (max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-brand { grid-column: span 1; }
     .footer-bottom { flex-direction: column; text-align: center; }
-    .trust-items { gap: 24px; }
-    .trust-number { font-size: 28px; }
-    .phone-mockup { transform: none; animation: none; }
-    .feature-card { padding: 30px 24px; }
-  }
-
-  @media (max-width: 480px) {
-    .btn { padding: 12px 20px; font-size: 13px; }
-    .hero-buttons { flex-direction: column; align-items: center; }
-    .hero-buttons .btn { width: 100%; max-width: 280px; justify-content: center; }
-  }
-
-  /* Reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
   }
 </style>
 </head>
 <body>
 
-<div class="bg-animation"></div>
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
-
 <header>
-  <a href="/" class="logo">
-    <div class="logo-icon">💑</div>
-    <span class="logo-text">Couple Hub</span>
-  </a>
-  <nav>
-    <ul>
-      <li><a href="#features" class="active">Funcionalidades</a></li>
-      <li><a href="#demo">Demo</a></li>
-      <li><a href="#cta">Começar</a></li>
-    </ul>
-  </nav>
-  <div class="header-actions">
-    <a href="/login" class="btn btn-ghost">Entrar</a>
-    <a href="/cadastro" class="btn btn-primary">Começar grátis</a>
+  <div class="header-inner">
+    <a href="/" class="logo-header" aria-label="Couple Hub - Início">
+      <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.153 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="#262626" stroke-width="2"/>
+        <ellipse cx="87.5" cy="25.5" rx="14.5" ry="14.5" stroke="#262626" stroke-width="2"/>
+        <circle cx="129.5" cy="13.5" r="4.5" fill="#262626"/>
+      </svg>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#features" class="active">Funcionalidades</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#cta">Começar</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="/login" class="btn btn-ghost">Entrar</a>
+      <a href="/cadastro" class="btn btn-primary">Cadastrar</a>
+    </div>
   </div>
 </header>
 
 <main>
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="dot"></span>
-        <span>Novo: Avatar 3D do casal + Contratos inteligentes</span>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <div class="hero-logo">
+        <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.153 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="url(#grad)" stroke-width="2.5"/>
+          <ellipse cx="87.5" cy="25.5" rx="16" ry="16" stroke="url(#grad)" stroke-width="2.5"/>
+          <circle cx="129.5" cy="13.5" r="5" fill="url(#grad)"/>
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#f43f5e"/>
+              <stop offset="50%" style="stop-color:#a855f7"/>
+              <stop offset="100%" style="stop-color:#06b6d4"/>
+            </linearGradient>
+          </defs>
+        </svg>
       </div>
-      <h1>
-        Seu relacionamento,<br>
-        <span class="gradient-text">organizado e bonito</span>
-      </h1>
-      <p>Fotos, momentos, metas, finanças, contratos e muito mais. Tudo em um só lugar, feito para dois.</p>
+      <h1 id="hero-title">Seu relacionamento, <span>organizado</span></h1>
+      <p>Fotos, momentos, contratos, metas, finanças e muito mais. Tudo em um só lugar, feito para dois.</p>
       <div class="hero-buttons">
-        <a href="/cadastro" class="btn btn-primary">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
-          Criar nossa conta
-        </a>
-        <a href="#demo" class="btn btn-outline">Ver demonstração</a>
-      </div>
-
-      <div class="trust-bar">
-        <div class="trust-items">
-          <div class="trust-item">
-            <div class="trust-number">10K+</div>
-            <div class="trust-label">Casais</div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-number">2M+</div>
-            <div class="trust-label">Memórias</div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-number">99%</div>
-            <div class="trust-label">Satisfação</div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-number">Gratuito</div>
-            <div class="trust-label">Para começar</div>
-          </div>
-        </div>
+        <a href="/cadastro" class="btn btn-primary">Criar nossa conta grátis</a>
+        <a href="#demo" class="btn btn-ghost">Ver demonstração</a>
       </div>
     </div>
   </section>
 
-  <section id="features" class="features">
+  <section id="features" class="features" aria-labelledby="features-title">
     <div class="section-header">
       <span class="section-tag">Tudo o que vocês precisam</span>
-      <h2>Funcionalidades que<br>aproximam vocês</h2>
-      <p>Cada ferramenta foi pensada para fortalecer a conexão e organizar a vida a dois.</p>
+      <h2 id="features-title">Funcionalidades que<br>aproximam vocês</h2>
     </div>
-
     <div class="features-grid">
       <article class="feature-card">
         <div class="feature-icon">📸</div>
@@ -916,7 +333,6 @@
           <span class="feature-tag">Privado</span>
         </div>
       </article>
-
       <article class="feature-card">
         <div class="feature-icon">📜</div>
         <h3>Contrato do Casal</h3>
@@ -927,7 +343,6 @@
           <span class="feature-tag">Histórico de quebras</span>
         </div>
       </article>
-
       <article class="feature-card">
         <div class="feature-icon">🎯</div>
         <h3>Metas & Sonhos</h3>
@@ -938,7 +353,6 @@
           <span class="feature-tag">Notificações</span>
         </div>
       </article>
-
       <article class="feature-card">
         <div class="feature-icon">💰</div>
         <h3>Finanças Compartilhadas</h3>
@@ -949,7 +363,6 @@
           <span class="feature-tag">Recibos</span>
         </div>
       </article>
-
       <article class="feature-card">
         <div class="feature-icon">📅</div>
         <h3>Agenda & Datas Especiais</h3>
@@ -960,7 +373,6 @@
           <span class="feature-tag">Categorias</span>
         </div>
       </article>
-
       <article class="feature-card">
         <div class="feature-icon">❤️</div>
         <h3>Proximidade & Avatar 3D</h3>
@@ -974,59 +386,61 @@
     </div>
   </section>
 
-  <section id="demo" class="demo-section">
-    <div class="demo-content">
-      <div class="demo-text">
-        <h2>Veja como funciona<br>no dia a dia</h2>
-        <p>Interface limpa, modo escuro elegante e tudo sincronizado entre os dois celulares.</p>
-        <div class="demo-features">
-          <div class="demo-feature">
-            <div class="demo-feature-icon">📱</div>
-            <span>Design mobile-first, funciona perfeitamente no celular</span>
-          </div>
-          <div class="demo-feature">
-            <div class="demo-feature-icon">🔒</div>
-            <span>Dados criptografados, só vocês têm acesso</span>
-          </div>
-          <div class="demo-feature">
-            <div class="demo-feature-icon">⚡</div>
-            <span>Tempo real — mudanças aparecem instantaneamente</span>
-          </div>
-          <div class="demo-feature">
-            <div class="demo-feature-icon">🎨</div>
-            <span>Temas personalizáveis, cores do casal</span>
+  <section id="demo" class="demo" aria-labelledby="demo-title">
+    <div class="demo-inner">
+      <div class="demo-content">
+        <div class="demo-text">
+          <h2 id="demo-title">Veja como funciona<br>no dia a dia</h2>
+          <p>Interface limpa, modo claro elegante e tudo sincronizado entre os dois celulares.</p>
+          <div class="demo-list">
+            <div class="demo-item">
+              <div class="demo-icon">📱</div>
+              <span>Design mobile-first, funciona perfeitamente no celular</span>
+            </div>
+            <div class="demo-item">
+              <div class="demo-icon">🔒</div>
+              <span>Dados criptografados, só vocês têm acesso</span>
+            </div>
+            <div class="demo-item">
+              <div class="demo-icon">⚡</div>
+              <span>Tempo real — mudanças aparecem instantaneamente</span>
+            </div>
+            <div class="demo-item">
+              <div class="demo-icon">🎨</div>
+              <span>Temas personalizáveis, cores do casal</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="demo-visual">
-        <div class="phone-mockup">
-          <div class="phone-screen">
-            <div class="phone-content">
-              <div class="phone-header">
-                <div class="phone-avatar">R&M</div>
-                <div style="font-weight:600;font-size:14px">Couple Hub</div>
-              </div>
-              <div class="phone-stats">
-                <div class="stat">
-                  <div class="stat-value">847</div>
-                  <div class="stat-label">Dias</div>
+        <div class="demo-visual">
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="phone-content">
+                <div class="phone-header">
+                  <div class="phone-avatar">R&M</div>
+                  <div style="font-weight:600;font-size:14px">Couple Hub</div>
                 </div>
-                <div class="stat">
-                  <div class="stat-value">234</div>
-                  <div class="stat-label">Fotos</div>
+                <div class="phone-stats">
+                  <div class="stat">
+                    <div class="stat-value">847</div>
+                    <div class="stat-label">Dias</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat-value">234</div>
+                    <div class="stat-label">Fotos</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Metas</div>
+                  </div>
                 </div>
-                <div class="stat">
-                  <div class="stat-value">12</div>
-                  <div class="stat-label">Metas</div>
+                <div class="phone-actions">
+                  <button class="action-btn"><span class="action-icon">📸</span>Fotos</button>
+                  <button class="action-btn"><span class="action-icon">🎯</span>Metas</button>
+                  <button class="action-btn"><span class="action-icon">💰</span>Gastos</button>
+                  <button class="action-btn"><span class="action-icon">📜</span>Contrato</button>
+                  <button class="action-btn primary"><span class="action-icon">❤️</span>Proximidade: 87%</button>
+                  <button class="action-btn"><span class="action-icon">⚙️</span>Config</button>
                 </div>
-              </div>
-              <div class="phone-actions">
-                <button class="action-btn"><span class="action-btn-icon">📸</span>Fotos</button>
-                <button class="action-btn"><span class="action-btn-icon">🎯</span>Metas</button>
-                <button class="action-btn"><span class="action-btn-icon">💰</span>Gastos</button>
-                <button class="action-btn"><span class="action-btn-icon">📜</span>Contrato</button>
-                <button class="action-btn primary"><span class="action-btn-icon">❤️</span>Proximidade: 87%</button>
-                <button class="action-btn"><span class="action-btn-icon">⚙️</span>Config</button>
               </div>
             </div>
           </div>
@@ -1035,139 +449,75 @@
     </div>
   </section>
 
-  <section id="cta" class="cta-section">
-    <div class="cta-card">
-      <div class="cta-content">
-        <h2>Comecem hoje mesmo</h2>
-        <p>Leva 30 segundos. Sem cartão de crédito. Para sempre gratuito para o essencial.</p>
-        <div class="cta-buttons">
-          <a href="/cadastro" class="btn btn-primary" style="padding: 16px 32px; font-size: 16px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-            Criar nossa conta grátis
-          </a>
-          <a href="/login" class="btn btn-outline" style="padding: 16px 32px; font-size: 16px;">Já tenho conta</a>
-        </div>
-      </div>
+  <section id="cta" class="cta" aria-labelledby="cta-title">
+    <h2 id="cta-title">Comecem hoje mesmo</h2>
+    <p>Leva 30 segundos. Sem cartão de crédito. Grátis para o essencial.</p>
+    <div class="cta-buttons">
+      <a href="/cadastro" class="btn btn-primary" style="padding: 14px 28px; font-size: 15px;">Criar nossa conta grátis</a>
+      <a href="/login" class="btn btn-ghost" style="padding: 14px 28px; font-size: 15px;">Já tenho conta</a>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="/" class="logo">
-        <div class="logo-icon">💑</div>
-        <span class="logo-text">Couple Hub</span>
-      </a>
-      <p>O primeiro hub completo para casais organizarem sua vida juntos. Feito com amor para fortalecer conexões.</p>
-      <div class="social-links">
-        <a href="#" class="social-link" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a href="#" class="social-link" aria-label="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
-        <a href="#" class="social-link" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo-footer" aria-label="Couple Hub - Início">
+          <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.153 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="#262626" stroke-width="2"/>
+            <ellipse cx="87.5" cy="25.5" rx="14.5" ry="14.5" stroke="#262626" stroke-width="2"/>
+            <circle cx="129.5" cy="13.5" r="4.5" fill="#262626"/>
+          </svg>
+        </a>
+        <p>O primeiro hub completo para casais organizarem sua vida juntos. Feito com carinho para fortalecer conexões.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" class="social-link" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+          <a href="#" class="social-link" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <ul>
+          <li><a href="#features">Funcionalidades</a></li>
+          <li><a href="#demo">Demo</a></li>
+          <li><a href="#">Preços</a></li>
+          <li><a href="#">Changelog</a></li>
+          <li><a href="#">Roadmap</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Carreiras</a></li>
+          <li><a href="#">Imprensa</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacidade</a></li>
+          <li><a href="#">Termos</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">Segurança</a></li>
+          <li><a href="#">LGPD</a></li>
+        </ul>
       </div>
     </div>
-    <div class="footer-column">
-      <h4>Produto</h4>
-      <ul>
-        <li><a href="#features">Funcionalidades</a></li>
-        <li><a href="#demo">Demo</a></li>
-        <li><a href="#">Preços</a></li>
-        <li><a href="#">Changelog</a></li>
-        <li><a href="#">Roadmap</a></li>
-      </ul>
-    </div>
-    <div class="footer-column">
-      <h4>Empresa</h4>
-      <ul>
-        <li><a href="#">Sobre</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Carreiras</a></li>
-        <li><a href="#">Imprensa</a></li>
-        <li><a href="#">Contato</a></li>
-      </ul>
-    </div>
-    <div class="footer-column">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="#">Privacidade</a></li>
-        <li><a href="#">Termos</a></li>
-        <li><a href="#">Cookies</a></li>
-        <li><a href="#">Segurança</a></li>
-        <li><a href="#">LGPD</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2024 Couple Hub. Feito com 💕 para casais.</p>
-    <div class="footer-legal">
-      <a href="#">Status</a>
-      <a href="#">Suporte</a>
-      <a href="#">Comunidade</a>
+    <div class="footer-bottom">
+      <p>© 2024 Couple Hub</p>
+      <div class="footer-legal">
+        <a href="#">Status</a>
+        <a href="#">Suporte</a>
+        <a href="#">Comunidade</a>
+      </div>
     </div>
   </div>
 </footer>
 
-<script>
-  // Intersection Observer for scroll animations
-  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.animationPlayState = 'running';
-        entry.target.classList.add('visible');
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.feature-card, .demo-feature, .trust-item, .stat').forEach(el => {
-    el.style.animationPlayState = 'paused';
-    observer.observe(el);
-  });
-
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-
-  // Parallax effect on hero
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const scrolled = window.pageYOffset;
-        const orbs = document.querySelectorAll('.orb');
-        orbs.forEach((orb, i) => {
-          const speed = 0.1 * (i + 1);
-          orb.style.transform = `translateY(${scrolled * speed}px)`;
-        });
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-
-  // Header blur on scroll
-  const header = document.querySelector('header');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.style.background = 'rgba(10,10,15,0.95)';
-      header.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
-    } else {
-      header.style.background = 'rgba(10,10,15,0.8)';
-      header.style.boxShadow = 'none';
-    }
-  });
-</script>
 </body>
 </html>

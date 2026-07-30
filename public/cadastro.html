@@ -3,470 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cadastrar - Couple Hub</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Cadastrar • Couple Hub</title>
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --bg-elevated: #11111a;
-    --card: #16161f;
-    --card-hover: #1a1a25;
-    --border: #2a2a3a;
-    --text: #fafafa;
-    --text-muted: #8b8b9e;
-    --primary: #f43f5e;
-    --primary-glow: #fb7185;
-    --secondary: #a855f7;
-    --accent: #06b6d4;
-    --gold: #fbbf24;
-    --gradient-1: linear-gradient(135deg, #f43f5e 0%, #a855f7 50%, #06b6d4 100%);
-    --gradient-2: linear-gradient(135deg, #1e1e2e 0%, #0f0f1a 100%);
-    --gradient-3: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
-    --shadow-glow: 0 0 40px rgba(244,63,94,0.3), 0 0 80px rgba(168,85,247,0.2);
-    --shadow-card: 0 10px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03);
-  }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  html, body { height: 100%; }
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #fafafa;
+    color: #262626;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
-    line-height: 1.6;
-    position: relative;
-    overflow: hidden;
+    padding: 20px;
   }
-
-  .bg-layer {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background: var(--bg);
-  }
-
-  .bg-layer::before {
-    content: '';
-    position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: 
-      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(244,63,94,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 40% at 80% 30%, rgba(168,85,247,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse 50% 60% at 50% 80%, rgba(6,182,212,0.05) 0%, transparent 50%);
-    animation: bgShift 20s ease-in-out infinite;
-  }
-
-  .bg-layer::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(244,63,94,0.03) 1px, transparent 1px),
-      radial-gradient(circle at 75% 75%, rgba(168,85,247,0.03) 1px, transparent 1px);
-    background-size: 60px 60px, 80px 80px;
-    animation: gridMove 30s linear infinite;
-  }
-
-  @keyframes bgShift {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(-2%, 2%) rotate(1deg); }
-    66% { transform: translate(2%, -1%) rotate(-1deg); }
-  }
-
-  @keyframes gridMove {
-    0% { background-position: 0 0, 0 0; }
-    100% { background-position: 60px 60px, -80px -80px; }
-  }
-
-  .orb {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.35;
-    pointer-events: none;
-    z-index: -1;
-    animation: orbFloat 15s ease-in-out infinite;
-  }
-
-  .orb-1 { width: 350px; height: 350px; background: #f43f5e; top: -80px; right: -80px; animation-delay: 0s; }
-  .orb-2 { width: 250px; height: 250px; background: #a855f7; bottom: -40px; left: -40px; animation-delay: -5s; }
-  .orb-3 { width: 180px; height: 180px; background: #06b6d4; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -10s; }
-
-  @keyframes orbFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(25px, -15px) scale(1.05); }
-    50% { transform: translate(-15px, 25px) scale(0.95); }
-    75% { transform: translate(15px, 15px) scale(1.02); }
-  }
-
-  .signup-wrapper {
+  .main-card {
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    padding: 40px;
     width: 100%;
-    max-width: 440px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .signup-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 48px 40px 40px;
-    box-shadow: var(--shadow-card);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .signup-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--gradient-1);
-  }
-
-  .signup-card::after {
-    content: '';
-    position: absolute;
-    top: -50%; right: -50%;
-    width: 100%; height: 100%;
-    background: var(--gradient-1);
-    opacity: 0.02;
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .logo-signup {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 36px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .logo-signup .logo-icon {
-    width: 48px;
-    height: 48px;
-    background: var(--gradient-1);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    box-shadow: var(--shadow-glow);
-    animation: pulseGlow 3s ease-in-out infinite;
-  }
-
-  @keyframes pulseGlow {
-    0%, 100% { box-shadow: var(--shadow-glow); }
-    50% { box-shadow: 0 0 60px rgba(244,63,94,0.5), 0 0 120px rgba(168,85,247,0.3); }
-  }
-
-  .logo-signup .logo-text {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 26px;
-    font-weight: 700;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .welcome-text {
+    max-width: 350px;
     text-align: center;
-    margin-bottom: 32px;
-    position: relative;
-    z-index: 1;
   }
-
-  .welcome-text h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
-  .welcome-text p {
-    color: var(--text-muted);
-    font-size: 15px;
-  }
-
-  .form-group {
-    margin-bottom: 18px;
-    position: relative;
-    z-index: 1;
-  }
-
+  .logo { margin-bottom: 36px; }
+  .logo svg { width: 175px; height: 51px; }
+  .form-group { margin-bottom: 6px; text-align: left; }
   .form-group label { display: none; }
-
   .form-group input {
     width: 100%;
-    padding: 16px 16px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    font-size: 15px;
-    color: var(--text);
-    font-family: inherit;
+    padding: 14px 16px;
+    background: #fafafa;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #262626;
     outline: none;
-    transition: all 0.3s;
+    transition: border-color 0.2s, background 0.2s;
   }
-
   .form-group input:focus {
-    border-color: var(--primary);
-    background: var(--card);
-    box-shadow: 0 0 0 4px rgba(244,63,94,0.15);
+    border-color: #bdbdbd;
+    background: #fff;
   }
-
-  .form-group input::placeholder { color: var(--text-muted); }
-
-  .form-group input[type="password"] { padding-right: 52px; }
-
-  .toggle-password {
+  .form-group input::placeholder { color: #8e8e8e; }
+  .form-group input[type="password"] { padding-right: 48px; }
+  .form-group .toggle-password {
     position: absolute;
     right: 14px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: var(--text-muted);
+    color: #8e8e8e;
     cursor: pointer;
-    padding: 6px;
+    padding: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s;
-    z-index: 2;
   }
-
-  .toggle-password:hover { color: var(--text); }
-  .toggle-password svg { width: 22px; height: 22px; }
-
-  .password-hint {
-    font-size: 12px;
-    color: var(--text-muted);
-    text-align: center;
-    margin-top: -12px;
-    margin-bottom: 4px;
-    position: relative;
-    z-index: 1;
-  }
-
+  .form-group .toggle-password:hover { color: #262626; }
+  .form-group .toggle-password svg { width: 20px; height: 20px; }
   .btn-signup {
     width: 100%;
-    padding: 16px;
-    margin-top: 8px;
+    padding: 12px;
+    margin-top: 12px;
     border: none;
-    border-radius: 12px;
-    background: var(--gradient-3);
-    color: white;
-    font-size: 15px;
+    border-radius: 4px;
+    background: #0095f6;
+    color: #fff;
+    font-size: 16px;
     font-weight: 600;
-    font-family: inherit;
     cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 20px rgba(244,63,94,0.4);
-    position: relative;
-    z-index: 1;
+    transition: background 0.2s;
   }
-
-  .btn-signup:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(244,63,94,0.5);
-  }
-
-  .btn-signup:active { transform: translateY(0); }
-  .btn-signup:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
-
+  .btn-signup:hover { background: #0077cc; }
+  .btn-signup:disabled { background: #b0d9f5; cursor: not-allowed; }
   .divider {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin: 28px 0;
-    position: relative;
-    z-index: 1;
+    margin: 20px 0;
+    color: #8e8e8e;
+    font-size: 13px;
+    font-weight: 600;
   }
-
   .divider::before,
   .divider::after {
-    content: '';
+    content: "";
     flex: 1;
     height: 1px;
-    background: var(--border);
+    background: #dbdbdb;
   }
-
-  .divider span {
-    font-size: 13px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    white-space: nowrap;
-  }
-
+  .divider span { padding: 0 16px; }
   .btn-facebook {
     width: 100%;
-    padding: 14px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: var(--bg-elevated);
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
     color: #385185;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
-    font-family: inherit;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    transition: all 0.3s;
-    position: relative;
-    z-index: 1;
+    gap: 8px;
+    transition: color 0.2s;
   }
-
-  .btn-facebook:hover {
-    border-color: #385185;
-    background: rgba(56,81,133,0.1);
-    color: #4a6bc1;
-  }
-
-  .btn-facebook svg { width: 20px; height: 20px; }
-
+  .btn-facebook:hover { color: #2d4373; }
+  .btn-facebook svg { width: 18px; height: 18px; }
   .terms {
     text-align: center;
     font-size: 12px;
-    color: var(--text-muted);
+    color: #8e8e8e;
     line-height: 1.6;
     margin-top: 24px;
-    position: relative;
-    z-index: 1;
   }
-
-  .terms a {
-    color: #00376b;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
+  .terms a { color: #00376b; text-decoration: none; font-weight: 600; }
   .terms a:hover { text-decoration: underline; }
-
   .mensagem {
-    margin: 16px 0;
-    padding: 14px 18px;
-    border-radius: 10px;
+    margin: 12px 0;
+    padding: 12px 16px;
+    border-radius: 4px;
     font-size: 14px;
     text-align: center;
     display: none;
-    animation: slideIn 0.3s ease-out;
-    position: relative;
-    z-index: 1;
   }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
   .mensagem:not(:empty) { display: block; }
-  .mensagem.erro { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
-  .mensagem.sucesso { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #86efac; }
-
-  .login-prompt {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    text-align: center;
+  .mensagem.erro { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .mensagem.sucesso { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+  .login-card {
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 16px;
     font-size: 14px;
-    color: var(--text);
-    margin-top: 24px;
-    position: relative;
-    z-index: 1;
+    color: #262626;
   }
-
-  .login-prompt a {
-    color: var(--primary);
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .login-prompt a:hover { color: var(--primary-glow); text-decoration: underline; }
-
-  .page-footer {
-    margin-top: 40px;
-    padding: 0 20px;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px 20px;
-    margin-bottom: 16px;
-  }
-
-  .footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 12px;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--primary); text-decoration: underline; }
-
-  .footer-copyright {
-    color: var(--text-muted);
-    font-size: 12px;
-  }
-
-  @media (max-width: 480px) {
-    .signup-card { padding: 40px 24px 32px; }
-    .logo-signup .logo-text { font-size: 22px; }
-    .welcome-text h1 { font-size: 24px; }
-    .btn-signup { padding: 14px; font-size: 14px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
+  .login-card a { color: #0095f6; font-weight: 600; text-decoration: none; }
+  .login-card a:hover { text-decoration: underline; }
+  .app-links { margin-top: 28px; text-align: center; }
+  .app-links p { font-size: 14px; color: #8e8e8e; margin-bottom: 16px; }
+  .app-buttons { display: flex; justify-content: center; gap: 12px; }
+  .app-buttons img { height: 40px; }
+  footer { padding: 20px; text-align: center; }
+  .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin-bottom: 16px; }
+  .footer-links a { color: #8e8e8e; text-decoration: none; font-size: 12px; }
+  .footer-links a:hover { text-decoration: underline; }
+  .footer-copyright { color: #8e8e8e; font-size: 12px; }
+  @media (max-width: 400px) {
+    .main-card { padding: 32px 24px; }
+    .logo svg { width: 140px; height: 40px; }
   }
 </style>
 </head>
 <body>
-
-<div class="bg-layer"></div>
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
-
-<div class="signup-wrapper">
-  <div class="signup-card">
-    <a href="/" class="logo-signup" aria-label="Couple Hub - Início">
-      <div class="logo-icon">💑</div>
-      <span class="logo-text">Couple Hub</span>
-    </a>
-
-    <div class="welcome-text">
-      <h1>Criar nossa conta</h1>
-      <p>Comece a jornada do casal em segundos</p>
+<div class="container">
+  <div class="main-card">
+    <div class="logo">
+      <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.153 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="#262626" stroke-width="2"/>
+        <ellipse cx="87.5" cy="25.5" rx="14.5" ry="14.5" stroke="#262626" stroke-width="2"/>
+        <circle cx="129.5" cy="13.5" r="4.5" fill="#262626"/>
+      </svg>
     </div>
 
     <form id="formCadastro">
@@ -478,7 +182,7 @@
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="Email" autocomplete="email" required>
       </div>
-      <div class="form-group">
+      <div class="form-group" style="position: relative;">
         <label for="senha">Senha</label>
         <input type="password" id="senha" name="senha" placeholder="Senha (mín. 6 caracteres)" autocomplete="new-password" required minlength="6">
         <button type="button" class="toggle-password" id="togglePass" aria-label="Mostrar senha">
@@ -488,7 +192,6 @@
           </svg>
         </button>
       </div>
-      <p class="password-hint">A senha deve ter pelo menos 6 caracteres</p>
       <div id="mensagem" class="mensagem"></div>
       <button type="submit" class="btn-signup" id="btnCadastrar">Cadastrar</button>
     </form>
@@ -508,27 +211,35 @@
     </p>
   </div>
 
-  <div class="login-prompt">
+  <div class="login-card">
     Já tem conta? <a href="/login">Entrar</a>
   </div>
 
-  <footer class="page-footer">
-    <div class="footer-links">
-      <a href="#">Meta</a>
-      <a href="#">Sobre</a>
-      <a href="#">Blog</a>
-      <a href="#">Empregos</a>
-      <a href="#">Ajuda</a>
-      <a href="#">API</a>
-      <a href="#">Privacidade</a>
-      <a href="#">Termos</a>
-      <a href="#">Melhores contas</a>
-      <a href="#">Hashtags</a>
-      <a href="#">Idioma</a>
+  <div class="app-links">
+    <p>Baixe o app</p>
+    <div class="app-buttons">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Google_Play_Store_badge_EN.svg" alt="Google Play">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/App_Store_badge_en.svg" alt="App Store">
     </div>
-    <p class="footer-copyright">© 2024 Couple Hub</p>
-  </footer>
+  </div>
 </div>
+
+<footer>
+  <div class="footer-links">
+    <a href="#">Meta</a>
+    <a href="#">Sobre</a>
+    <a href="#">Blog</a>
+    <a href="#">Empregos</a>
+    <a href="#">Ajuda</a>
+    <a href="#">API</a>
+    <a href="#">Privacidade</a>
+    <a href="#">Termos</a>
+    <a href="#">Melhores contas</a>
+    <a href="#">Hashtags</a>
+    <a href="#">Idioma</a>
+  </div>
+  <p class="footer-copyright">© 2024 Couple Hub</p>
+</footer>
 
 <script>
 document.getElementById('formCadastro').addEventListener('submit', async (e) => {
