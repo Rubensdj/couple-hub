@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card dashboard">
+      <h1 style="text-align:center;">Bem-vido!</h1>
+      <div class="user-info">
+        <div class="avatar" id="avatar">U</div>
+        <h2 id="userNome">Carregando...</h2>
+        <p id="userEmail" class="subtitle"></p>
+      </div>
+
+      <div class="info-box">
+        <h3>Conta ativa</h3>
+        <p>Sua sessão está ativa e segura. Você entrou com sucesso no sistema.</p>
+      </div>
+
+      <button onclick="fazerLogout()" class="btn btn-danger btn-full">Sair</button>
+    </div>
+  </div>
+
+  <script>
+    // Carrega dados do usuário
+    fetch('/api/usuario')
+      .then(r => r.json())
+      .then(data => {
+        if (data.erro) {
+          window.location.href = '/login';
+        } else {
+          document.getElementById('userNome').textContent = data.nome;
+          document.getElementById('userEmail').textContent = data.email;
+          document.getElementById('avatar').textContent = data.nome.charAt(0).toUpperCase();
+        }
+      })
+      .catch(() => window.location.href = '/login');
+
+    async function fazerLogout() {
+      await fetch('/api/logout', { method: 'POST' });
+      window.location.href = '/';
+    }
+  </script>
+</body>
+</html>

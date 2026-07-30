@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Entrar</h1>
+      <p class="subtitle">Acesse sua conta</p>
+
+      <form id="formLogin">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" placeholder="Sua senha" required>
+        </div>
+        <div id="mensagem" class="mensagem"></div>
+        <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+      </form>
+
+      <p class="link-text">Não tem conta? <a href="/cadastro">Cadastre-se</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('formLogin').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const dados = {
+        email: document.getElementById('email').value,
+        senha: document.getElementById('senha').value
+      };
+
+      const msg = document.getElementById('mensagem');
+
+      try {
+        const resposta = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dados)
+        });
+        const resultado = await resposta.json();
+
+        if (resposta.ok) {
+          msg.className = 'mensagem sucesso';
+          msg.textContent = resultado.mensagem;
+          setTimeout(() => window.location.href = '/dashboard', 1000);
+        } else {
+          msg.className = 'mensagem erro';
+          msg.textContent = resultado.erro;
+        }
+      } catch (err) {
+        msg.className = 'mensagem erro';
+        msg.textContent = 'Erro ao conectar com o servidor.';
+      }
+    });
+  </script>
+</body>
+</html>
