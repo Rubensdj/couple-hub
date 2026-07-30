@@ -18,6 +18,25 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 86400000 }
 }));
+
+// ============ ROTAS (antes do static) ============
+// Rota raiz - verifica sessão
+app.get('/', (req, res) => {
+  if (req.session.userId) res.sendFile(path.join(__dirname, 'public', 'app.html'));
+  else res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Rota do app (protegida)
+app.get('/app', (req, res) => {
+  if (req.session.userId) res.sendFile(path.join(__dirname, 'public', 'app.html'));
+  else res.redirect('/login');
+});
+
+// Páginas públicas
+app.get('/cadastro', (req, res) => res.sendFile(path.join(__dirname, 'public', 'cadastro.html')));
+app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'public', 'login.html')));
+
+// Static files - DEPOIS das rotas
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ============ BANCO DE DADOS (arquivo JSON) ============

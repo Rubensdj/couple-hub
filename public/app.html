@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Couple Hub</title>
+<link rel="stylesheet" href="/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="avatar-3d-container">
+      <div id="avatar3d"></div>
+    </div>
+    <div class="couple-name" id="coupleName">Casal</div>
+    <div class="together-time" id="togetherTime"></div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Principal</div>
+        <div class="nav-item active" data-module="dashboard">🏠 Dashboard</div>
+        <div class="nav-item" data-module="cartao">💑 Cartão de Relacionamento</div>
+        <div class="nav-item" data-module="proximidade">❤️ Proximidade</div>
+        <div class="nav-item" data-module="sobre">📖 Sobre Nós</div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Mídia</div>
+        <div class="nav-item" data-module="fotos">📸 Fotos</div>
+        <div class="nav-item" data-module="videos">🎥 Vídeos</div>
+        <div class="nav-item" data-module="momentos">✨ Momentos</div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Acordos</div>
+        <div class="nav-item" data-module="contrato">📜 Contrato do Casal</div>
+        <div class="nav-item" data-module="acordos">🤝 Acordos</div>
+        <div class="nav-item" data-module="proibicoes">🚫 Proibições</div>
+        <div class="nav-item" data-module="recibos">📄 Recibos</div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Futuro</div>
+        <div class="nav-item" data-module="metas">🎯 Metas</div>
+        <div class="nav-item" data-module="sonhos">💭 Sonhos</div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Vida</div>
+        <div class="nav-item" data-module="gastos">💰 Gastos</div>
+        <div class="nav-item" data-module="agenda">📅 Agenda</div>
+        <div class="nav-item" data-module="dicas">💡 Dicas</div>
+        <div class="nav-item" data-module="redes">🌐 Redes Sociais</div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Sistema</div>
+        <div class="nav-item" data-module="config">⚙️ Configurações</div>
+      </div>
+    </nav>
+    <button class="btn-logout" onclick="logout()">Sair</button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content" id="mainContent">
+    <!-- DASHBOARD -->
+    <div class="module active" id="module-dashboard">
+      <h1 class="module-title">Dashboard</h1>
+      <div class="stats-grid">
+        <div class="stat-card glass-card">
+          <div class="stat-icon">❤️</div>
+          <div class="stat-value" id="statTime">0 dias</div>
+          <div class="stat-label">Tempo Juntos</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-icon">📸</div>
+          <div class="stat-value" id="statFotos">0</div>
+          <div class="stat-label">Fotos</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-value" id="statMetas">0</div>
+          <div class="stat-label">Metas</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-value" id="statProxData">--</div>
+          <div class="stat-label">Próxima Data</div>
+        </div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="glass-card">
+          <h2>Próximos Eventos</h2>
+          <div id="dashAgenda"></div>
+        </div>
+        <div class="glass-card">
+          <h2>Metas em Andamento</h2>
+          <div id="dashMetas"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOTOS -->
+    <div class="module" id="module-fotos">
+      <h1 class="module-title">📸 Fotos</h1>
+      <div class="glass-card">
+        <h3>Adicionar Foto</h3>
+        <input type="file" id="fotoFile" accept="image/*" class="file-input">
+        <input type="text" id="fotoTitulo" placeholder="Título" class="form-input">
+        <textarea id="fotoDesc" placeholder="Descrição" class="form-textarea"></textarea>
+        <button class="btn-primary" onclick="addFoto()">Enviar Foto</button>
+      </div>
+      <div class="photo-grid" id="fotosGrid"></div>
+    </div>
+
+    <!-- VIDEOS -->
+    <div class="module" id="module-videos">
+      <h1 class="module-title">🎥 Vídeos</h1>
+      <div class="glass-card">
+        <h3>Adicionar Vídeo</h3>
+        <input type="file" id="videoFile" accept="video/*" class="file-input">
+        <input type="text" id="videoTitulo" placeholder="Título" class="form-input">
+        <textarea id="videoDesc" placeholder="Descrição" class="form-textarea"></textarea>
+        <button class="btn-primary" onclick="addVideo()">Enviar Vídeo</button>
+      </div>
+      <div class="video-grid" id="videosGrid"></div>
+    </div>
+
+    <!-- MOMENTOS -->
+    <div class="module" id="module-momentos">
+      <h1 class="module-title">✨ Momentos</h1>
+      <div class="glass-card">
+        <h3>Registrar Momento</h3>
+        <input type="text" id="momentoTitulo" placeholder="Título do momento" class="form-input">
+        <textarea id="momentoDesc" placeholder="O que aconteceu?" class="form-textarea"></textarea>
+        <input type="date" id="momentoData" class="form-input">
+        <button class="btn-primary" onclick="addMomento()">Adicionar</button>
+      </div>
+      <div class="timeline" id="timelineMomentos"></div>
+    </div>
+
+    <!-- CARTAO -->
+    <div class="module" id="module-cartao">
+      <h1 class="module-title">💑 Cartão de Relacionamento</h1>
+      <div class="glass-card cartao">
+        <div class="cartao-header">
+          <div class="avatar-circle" id="cartaoAvatar1">P</div>
+          <div class="heart-icon">❤️</div>
+          <div class="avatar-circle" id="cartaoAvatar2">P</div>
+        </div>
+        <h2 id="cartaoNomeCasal">Nosso Casal</h2>
+        <div class="cartao-info">
+          <div class="info-row"><span>Tipo:</span><strong id="cartaoTipo">--</strong></div>
+          <div class="info-row"><span>Início:</span><strong id="cartaoInicio">--</strong></div>
+          <div class="info-row"><span>Tempo:</span><strong id="cartaoTempo">--</strong></div>
+          <div class="info-row"><span>Status:</span><strong class="status-badge" id="cartaoStatus">Ativo</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTRATO -->
+    <div class="module" id="module-contrato">
+      <h1 class="module-title">📜 Contrato do Casal</h1>
+      <div class="glass-card">
+        <h3>Texto do Contrato</h3>
+        <textarea id="contratoTexto" placeholder="Digite o contrato do relacionamento..." class="form-textarea" rows="6"></textarea>
+        <div class="form-row">
+          <input type="text" id="contratoTipo" placeholder="Tipo" class="form-input">
+          <button class="btn-primary" onclick="salvarContrato()">Salvar Contrato</button>
+          <button class="btn-success" id="btnAssinar" onclick="assinarContrato()">Assinar</button>
+        </div>
+      </div>
+      <div class="glass-card">
+        <h3>Regras do Contrato</h3>
+        <div class="form-row">
+          <input type="text" id="regraTexto" placeholder="Nova regra..." class="form-input">
+          <button class="btn-primary" onclick="addRegra()">+ Regra</button>
+        </div>
+        <div id="regrasLista"></div>
+      </div>
+      <div class="glass-card">
+        <h3>⚠️ Quebras de Contrato</h3>
+        <div class="form-row">
+          <input type="text" id="quebraRegra" placeholder="Regra quebrada" class="form-input">
+          <input type="text" id="quebraDesc" placeholder="Descrição" class="form-input">
+          <input type="text" id="quebraCons" placeholder="Consequência" class="form-input">
+          <button class="btn-danger" onclick="addQuebra()">Registrar</button>
+        </div>
+        <div id="quebrasLista"></div>
+      </div>
+    </div>
+
+    <!-- ACORDOS -->
+    <div class="module" id="module-acordos">
+      <h1 class="module-title">🤝 Acordos</h1>
+      <div class="glass-card">
+        <input type="text" id="acordoTitulo" placeholder="Título do acordo" class="form-input">
+        <textarea id="acordoDesc" placeholder="Descrição do acordo" class="form-textarea"></textarea>
+        <input type="date" id="acordoPrazo" class="form-input">
+        <button class="btn-primary" onclick="addAcordo()">Novo Acordo</button>
+      </div>
+      <div id="acordosLista"></div>
+    </div>
+
+    <!-- PROIBICOES -->
+    <div class="module" id="module-proibicoes">
+      <h1 class="module-title">🚫 Proibições</h1>
+      <div class="glass-card">
+        <div class="form-row">
+          <input type="text" id="proibTexto" placeholder="O que é proibido" class="form-input">
+          <select id="proibSever" class="form-input">
+            <option value="leve">Leve</option>
+            <option value="media" selected>Média</option>
+            <option value="grave">Grave</option>
+            <option value="gravissima">Gravíssima</option>
+          </select>
+          <button class="btn-danger" onclick="addProibicao()">+ Proibir</button>
+        </div>
+      </div>
+      <div id="proibicoesLista"></div>
+    </div>
+
+    <!-- METAS -->
+    <div class="module" id="module-metas">
+      <h1 class="module-title">🎯 Metas</h1>
+      <div class="glass-card">
+        <input type="text" id="metaTitulo" placeholder="Título da meta" class="form-input">
+        <textarea id="metaDesc" placeholder="Descrição" class="form-textarea"></textarea>
+        <input type="date" id="metaPrazo" class="form-input">
+        <button class="btn-primary" onclick="addMeta()">+ Meta</button>
+      </div>
+      <div id="metasLista"></div>
+    </div>
+
+    <!-- SONHOS -->
+    <div class="module" id="module-sonhos">
+      <h1 class="module-title">💭 Sonhos</h1>
+      <div class="glass-card">
+        <input type="text" id="sonhoTitulo" placeholder="Sonho" class="form-input">
+        <textarea id="sonhoDesc" placeholder="Descrição do sonho" class="form-textarea"></textarea>
+        <input type="text" id="sonhoCat" placeholder="Categoria (ex: viagem)" class="form-input">
+        <button class="btn-primary" onclick="addSonho()">+ Sonho</button>
+      </div>
+      <div id="sonhosLista"></div>
+    </div>
+
+    <!-- GASTOS -->
+    <div class="module" id="module-gastos">
+      <h1 class="module-title">💰 Controle de Gastos</h1>
+      <div class="glass-card">
+        <div class="gastos-summary">
+          <div class="gasto-total">Total: R$ <span id="gastoTotal">0,00</span></div>
+        </div>
+        <div class="form-row">
+          <input type="text" id="gastoDesc" placeholder="Descrição" class="form-input">
+          <input type="number" id="gastoValor" placeholder="Valor" step="0.01" class="form-input" style="width:120px">
+          <input type="text" id="gastoCat" placeholder="Categoria" class="form-input" style="width:120px">
+          <select id="gastoPago" class="form-input">
+            <option value="pessoa1">Pessoa 1</option>
+            <option value="pessoa2">Pessoa 2</option>
+            <option value="casal">Casal</option>
+          </select>
+          <button class="btn-primary" onclick="addGasto()">+ Gasto</button>
+        </div>
+      </div>
+      <div class="glass-card">
+        <table class="gastos-table" id="gastosTabela"></table>
+      </div>
+    </div>
+
+    <!-- RECIBOS -->
+    <div class="module" id="module-recibos">
+      <h1 class="module-title">📄 Recibos e Comprovantes</h1>
+      <div class="glass-card">
+        <div class="form-row">
+          <input type="text" id="reciboTipo" placeholder="Tipo" class="form-input">
+          <input type="text" id="reciboDesc" placeholder="Descrição" class="form-input">
+          <input type="text" id="reciboValor" placeholder="Valor" class="form-input">
+          <button class="btn-primary" onclick="addRecibo()">+ Recibo</button>
+        </div>
+      </div>
+      <div id="recibosLista"></div>
+    </div>
+
+    <!-- AGENDA -->
+    <div class="module" id="module-agenda">
+      <h1 class="module-title">📅 Agenda e Datas Comemorativas</h1>
+      <div class="glass-card">
+        <input type="text" id="agendaTitulo" placeholder="Título do evento" class="form-input">
+        <textarea id="agendaDesc" placeholder="Descrição" class="form-textarea"></textarea>
+        <div class="form-row">
+          <input type="date" id="agendaData" class="form-input">
+          <select id="agendaTipo" class="form-input">
+            <option value="aniversario">Aniversário</option>
+            <option value="comemoracao">Comemoração</option>
+            <option value="encontro">Encontro</option>
+            <option value="viagem">Viagem</option>
+            <option value="compromisso">Compromisso</option>
+          </select>
+          <select id="agendaRec" class="form-input">
+            <option value="anual">Anual</option>
+            <option value="unico">Único</option>
+            <option value="mensal">Mensal</option>
+          </select>
+          <button class="btn-primary" onclick="addAgenda()">+ Evento</button>
+        </div>
+      </div>
+      <div id="agendaLista"></div>
+    </div>
+
+    <!-- DICAS -->
+    <div class="module" id="module-dicas">
+      <h1 class="module-title">💡 Dicas de Relacionamento</h1>
+      <div class="glass-card">
+        <input type="text" id="dicaTitulo" placeholder="Título da dica" class="form-input">
+        <textarea id="dicaTexto" placeholder="A dica..." class="form-textarea"></textarea>
+        <select id="dicaCat" class="form-input">
+          <option value="geral">Geral</option>
+          <option value="comunicacao">Comunicação</option>
+          <option value="intimidade">Intimidade</option>
+          <option value="romance">Romance</option>
+          <option value="saude">Saúde</option>
+        </select>
+        <button class="btn-primary" onclick="addDica()">+ Dica</button>
+      </div>
+      <div id="dicasLista"></div>
+    </div>
+
+    <!-- REDES -->
+    <div class="module" id="module-redes">
+      <h1 class="module-title">🌐 Redes Sociais do Casal</h1>
+      <div class="glass-card">
+        <div class="form-row">
+          <input type="text" id="redePlataforma" placeholder="Plataforma (Instagram, TikTok...)" class="form-input">
+          <input type="text" id="redeUsuario" placeholder="@usuario" class="form-input">
+          <input type="text" id="redeUrl" placeholder="URL" class="form-input">
+          <button class="btn-primary" onclick="addRede()">+ Rede</button>
+        </div>
+      </div>
+      <div id="redesLista"></div>
+    </div>
+
+    <!-- SOBRE -->
+    <div class="module" id="module-sobre">
+      <h1 class="module-title">📖 Sobre Nós</h1>
+      <div class="glass-card">
+        <h3>Nossa História</h3>
+        <textarea id="sobreTexto" placeholder="Conte a história de vocês..." class="form-textarea" rows="8"></textarea>
+        <button class="btn-primary" onclick="salvarSobre()">Salvar</button>
+      </div>
+    </div>
+
+    <!-- PROXIMIDADE -->
+    <div class="module" id="module-proximidade">
+      <h1 class="module-title">❤️ Proximidade</h1>
+      <div class="glass-card proximidade-box">
+        <div class="proximidade-circle" id="proximidadeCircle">
+          <span id="proximidadeValor">50%</span>
+        </div>
+        <h3 id="proximidadeStatus">Conectados</h3>
+        <input type="range" id="proximidadeSlider" min="0" max="100" value="50" oninput="updateProximidade(this.value)">
+        <button class="btn-primary" onclick="salvarProximidade()">Salvar</button>
+      </div>
+    </div>
+
+    <!-- CONFIG -->
+    <div class="module" id="module-config">
+      <h1 class="module-title">⚙️ Configurações</h1>
+      <div class="glass-card">
+        <h3>Dados do Casal</h3>
+        <label>Nome do casal</label>
+        <input type="text" id="cfgNomeCasal" placeholder="Ex: Rubens & Maria" class="form-input">
+        <label>Pessoa 1</label>
+        <input type="text" id="cfgPessoa1" placeholder="Nome" class="form-input">
+        <label>Pessoa 2</label>
+        <input type="text" id="cfgPessoa2" placeholder="Nome" class="form-input">
+        <label>Tipo de relacionamento</label>
+        <select id="cfgTipo" class="form-input">
+          <option value="Namoro">Namoro</option>
+          <option value="Noivado">Noivado</option>
+          <option value="Casamento">Casamento</option>
+          <option value="União Estável">União Estável</option>
+          <option value="Encontro">Encontro</option>
+        </select>
+        <label>Data de início</label>
+        <input type="date" id="cfgDataInicio" class="form-input">
+        <button class="btn-primary" onclick="salvarConfig()">Salvar Configurações</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+<div id="toast"></div>
+<script src="/app.js"></script>
+</body>
+</html>

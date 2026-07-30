@@ -1,65 +1,403 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrar - Couple Hub</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  :root {
+    --ig-blue: #0095f6;
+    --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    --bg: #fafafa;
+    --card-bg: #ffffff;
+    --text: #262626;
+    --text-secondary: #8e8e8e;
+    --border: #dbdbdb;
+    --input-bg: #fafafa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .login-container {
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .login-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 40px 40px 24px;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .logo-login {
+    display: block;
+    margin: 0 auto 36px;
+  }
+
+  .logo-login svg {
+    width: 175px;
+    height: auto;
+  }
+
+  .form-group {
+    margin-bottom: 6px;
+    position: relative;
+  }
+
+  .form-group label {
+    display: none; /* Labels ocultos, usamos placeholder */
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px 12px;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .form-group input:focus {
+    border-color: var(--ig-blue);
+    background: #fff;
+  }
+
+  .form-group input::placeholder {
+    color: var(--text-secondary);
+  }
+
+  .form-group input[type="password"] {
+    padding-right: 44px;
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .toggle-password:hover { color: var(--text); }
+  .toggle-password svg { width: 20px; height: 20px; }
+
+  .btn-login {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 4px;
+    background: var(--ig-blue);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    opacity: 1;
+  }
+
+  .btn-login:hover { background: #0077cc; }
+  .btn-login:disabled {
+    background: rgba(0,149,246,0.3);
+    cursor: not-allowed;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider span { padding: 0 16px; }
+
+  .btn-facebook {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #385185;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .btn-facebook:hover { color: #2d4373; }
+
+  .forgot-password {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    color: var(--ig-blue);
+    font-size: 12px;
+    text-decoration: none;
+  }
+
+  .forgot-password:hover { text-decoration: underline; }
+
+  .mensagem {
+    margin: 12px 0;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+  }
+
+  .mensagem:not(:empty) { display: block; }
+  .mensagem.erro { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .mensagem.sucesso { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+
+  .signup-prompt {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .signup-prompt a {
+    color: var(--ig-blue);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .signup-prompt a:hover { text-decoration: underline; }
+
+  .app-download {
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  .app-download p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .app-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .app-buttons img {
+    height: 40px;
+    width: auto;
+  }
+
+  footer {
+    margin-top: 40px;
+    padding: 0 20px 20px;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 12px;
+  }
+
+  .footer-links a:hover { text-decoration: underline; color: var(--text); }
+
+  .footer-copyright {
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  @media (max-width: 400px) {
+    .login-card { padding: 32px 24px 20px; }
+    .logo-login svg { width: 150px; }
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <h1>Entrar</h1>
-      <p class="subtitle">Acesse sua conta</p>
 
-      <form id="formLogin">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="seu@email.com" required>
-        </div>
-        <div class="form-group">
-          <label for="senha">Senha</label>
-          <input type="password" id="senha" name="senha" placeholder="Sua senha" required>
-        </div>
-        <div id="mensagem" class="mensagem"></div>
-        <button type="submit" class="btn btn-primary btn-full">Entrar</button>
-      </form>
+<div class="login-container">
+  <div class="login-card">
+    <a href="/" class="logo-login" aria-label="Couple Hub">
+      <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.153 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="url(#loginGrad)" stroke-width="2"/>
+        <ellipse cx="87.5" cy="25.5" rx="14.5" ry="14.5" stroke="url(#loginGrad)" stroke-width="2"/>
+        <circle cx="129.5" cy="13.5" r="4.5" fill="url(#loginGrad)"/>
+        <defs>
+          <linearGradient id="loginGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#f09433"/>
+            <stop offset="25%" style="stop-color:#e6683c"/>
+            <stop offset="50%" style="stop-color:#dc2743"/>
+            <stop offset="75%" style="stop-color:#cc2366"/>
+            <stop offset="100%" style="stop-color:#bc1888"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </a>
 
-      <p class="link-text">Não tem conta? <a href="/cadastro">Cadastre-se</a></p>
-    </div>
+    <form id="formLogin">
+      <div class="form-group">
+        <label for="email">Telefone, nome de usuário ou email</label>
+        <input type="text" id="email" name="email" placeholder="Telefone, nome de usuário ou email" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" placeholder="Senha" autocomplete="current-password" required>
+        <button type="button" class="toggle-password" id="togglePass" aria-label="Mostrar senha">
+          <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+      <div id="mensagem" class="mensagem"></div>
+      <button type="submit" class="btn-login" id="btnLogin">Entrar</button>
+    </form>
+
+    <div class="divider"><span>OU</span></div>
+
+    <button type="button" class="btn-facebook" id="btnFacebook">
+      <svg viewBox="0 0 24 24" fill="#385185">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+      Entrar com o Facebook
+    </button>
+
+    <a href="#" class="forgot-password">Esqueceu a senha?</a>
   </div>
 
-  <script>
-    document.getElementById('formLogin').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const dados = {
-        email: document.getElementById('email').value,
-        senha: document.getElementById('senha').value
-      };
+  <div class="signup-prompt">
+    Não tem conta? <a href="/cadastro">Cadastrar</a>
+  </div>
 
-      const msg = document.getElementById('mensagem');
+  <div class="app-download">
+    <p>Baixe o app</p>
+    <div class="app-buttons">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Google_Play_Store_badge_EN.svg" alt="Google Play" style="height: 40px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/App_Store_badge_en.svg" alt="App Store" style="height: 40px;">
+    </div>
+  </div>
+</div>
 
-      try {
-        const resposta = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(dados)
-        });
-        const resultado = await resposta.json();
+<footer>
+  <div class="footer-links">
+    <a href="#">Meta</a>
+    <a href="#">Sobre</a>
+    <a href="#">Blog</a>
+    <a href="#">Empregos</a>
+    <a href="#">Ajuda</a>
+    <a href="#">API</a>
+    <a href="#">Privacidade</a>
+    <a href="#">Termos</a>
+    <a href="#">Melhores contas</a>
+    <a href="#">Hashtags</a>
+    <a href="#">Idioma</a>
+  </div>
+  <p class="footer-copyright">© 2024 Couple Hub. Desenvolvido por Rubens Fernandes</p>
+</footer>
 
-        if (resposta.ok) {
-          msg.className = 'mensagem sucesso';
-          msg.textContent = resultado.mensagem;
-          setTimeout(() => window.location.href = '/dashboard', 1000);
-        } else {
-          msg.className = 'mensagem erro';
-          msg.textContent = resultado.erro;
-        }
-      } catch (err) {
-        msg.className = 'mensagem erro';
-        msg.textContent = 'Erro ao conectar com o servidor.';
-      }
+<script>
+document.getElementById('formLogin').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('btnLogin');
+  const msg = document.getElementById('mensagem');
+  const email = document.getElementById('email').value;
+  const senha = document.getElementById('senha').value;
+
+  btn.disabled = true;
+  btn.textContent = 'Entrando...';
+  msg.textContent = '';
+  msg.className = 'mensagem';
+
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ email, senha })
     });
-  </script>
+    const data = await res.json();
+
+    if (res.ok) {
+      msg.className = 'mensagem sucesso';
+      msg.textContent = 'Login realizado! Redirecionando...';
+      setTimeout(() => window.location.href = '/app', 800);
+    } else {
+      msg.className = 'mensagem erro';
+      msg.textContent = data.erro || 'Erro ao entrar';
+      btn.disabled = false;
+      btn.textContent = 'Entrar';
+    }
+  } catch (err) {
+    msg.className = 'mensagem erro';
+    msg.textContent = 'Erro de conexão. Tente novamente.';
+    btn.disabled = false;
+    btn.textContent = 'Entrar';
+  }
+});
+
+// Toggle password visibility
+const togglePass = document.getElementById('togglePass');
+const senhaInput = document.getElementById('senha');
+const eyeIcon = document.getElementById('eyeIcon');
+
+togglePass.addEventListener('click', () => {
+  const isPassword = senhaInput.type === 'password';
+  senhaInput.type = isPassword ? 'text' : 'password';
+  eyeIcon.innerHTML = isPassword 
+    ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+    : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+});
+</script>
 </body>
 </html>
