@@ -3,520 +3,497 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Couple Hub • Seu relacionamento, organizado</title>
-<meta name="description" content="O primeiro hub completo para casais. Fotos, momentos, contratos, metas, finanças e muito mais. Grátis para começar.">
+<title>Couple Hub — Seu relacionamento, organizado</title>
+<meta name="description" content="O hub completo para casais: fotos, momentos, contratos, metas, finanças, avatar 3D, agenda e muito mais. Grátis.">
 <style>
+  :root {
+    --ig-bg: #fafafa;
+    --white: #fff;
+    --border: #dbdbdb;
+    --text: #262626;
+    --muted: #8e8e8e;
+    --blue: #0095f6;
+    --blue-hover: #0077cc;
+    --pink: #e1306c;
+    --gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #fff;
-    color: #262626;
-    line-height: 1.6;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
-  a { color: inherit; text-decoration: none; }
-  img { max-width: 100%; display: block; }
-  ul { list-style: none; }
-  
-  /* Header */
-  header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky;
+    top: 0;
     z-index: 100;
-    background: #fff;
-    border-bottom: 1px solid #dbdbdb;
+    background: rgba(255,255,255,.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
     padding: 0 20px;
   }
   .header-inner {
-    max-width: 975px;
+    max-width: 1100px;
     margin: 0 auto;
-    height: 54px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .logo-header { display: flex; align-items: center; gap: 8px; }
-  .logo-header svg { width: 103px; height: 30px; }
-  nav ul { display: flex; gap: 28px; }
-  nav a {
-    color: #8e8e8e;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 6px 0;
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  nav a:hover, nav a.active { color: #262626; border-color: #262626; }
-  .header-actions { display: flex; align-items: center; gap: 12px; }
-  .btn {
-    padding: 6px 16px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: 1px solid transparent;
-  }
-  .btn-ghost { background: transparent; color: #262626; border-color: transparent; }
-  .btn-ghost:hover { background: #fafafa; }
-  .btn-primary { background: #0095f6; color: #fff; }
-  .btn-primary:hover { background: #0077cc; }
-
-  /* Hero */
-  .hero {
-    min-height: 100vh;
+  .logo {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 140px 20px 80px;
-    background: #fafafa;
-  }
-  .hero-inner { max-width: 700px; text-align: center; }
-  .hero-logo { margin-bottom: 32px; }
-  .hero-logo svg { width: 200px; height: auto; }
-  .hero h1 {
-    font-size: clamp(36px, 5vw, 56px);
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: -0.5px;
-    margin-bottom: 16px;
-  }
-  .hero h1 span { font-weight: 300; }
-  .hero p {
-    font-size: clamp(16px, 2vw, 20px);
-    color: #8e8e8e;
-    margin-bottom: 32px;
-    line-height: 1.5;
-  }
-  .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .hero-buttons .btn { padding: 10px 24px; font-size: 14px; }
-
-  /* Features */
-  .features {
-    max-width: 975px;
-    margin: 0 auto;
-    padding: 100px 20px;
-  }
-  .section-header { text-align: center; margin-bottom: 60px; }
-  .section-tag {
-    display: inline-block;
-    font-size: 13px;
+    gap: 10px;
+    font-size: 20px;
     font-weight: 600;
-    color: #0095f6;
-    background: rgba(0,149,246,0.1);
-    padding: 6px 14px;
-    border-radius: 16px;
-    margin-bottom: 16px;
+    color: var(--text);
+    text-decoration: none;
   }
-  .section-header h2 {
-    font-size: clamp(28px, 3.5vw, 40px);
-    font-weight: 500;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
-  }
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-  }
-  .feature-card {
-    background: #fff;
-    border: 1px solid #dbdbdb;
-    border-radius: 8px;
-    padding: 32px;
-    text-align: left;
-    transition: box-shadow 0.2s, border-color 0.2s;
-  }
-  .feature-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.06); border-color: #e0e0e0; }
-  .feature-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: #fafafa;
-    border: 1px solid #dbdbdb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    margin-bottom: 20px;
-  }
-  .feature-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
-  .feature-card p { color: #8e8e8e; font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
-  .feature-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .feature-tag {
-    font-size: 11px;
-    font-weight: 600;
-    color: #8e8e8e;
-    background: #fafafa;
-    border: 1px solid #dbdbdb;
-    padding: 4px 10px;
-    border-radius: 4px;
-    transition: all 0.2s;
-  }
-  .feature-card:hover .feature-tag { border-color: #bdbdbd; color: #262626; }
-
-  /* Demo */
-  .demo {
-    background: #fafafa;
-    border-top: 1px solid #dbdbdb;
-    border-bottom: 1px solid #dbdbdb;
-    padding: 100px 20px;
-  }
-  .demo-inner { max-width: 975px; margin: 0 auto; }
-  .demo-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .demo-text h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 500; line-height: 1.2; margin-bottom: 20px; }
-  .demo-text p { color: #8e8e8e; font-size: 16px; line-height: 1.7; margin-bottom: 32px; }
-  .demo-list { display: flex; flex-direction: column; gap: 16px; }
-  .demo-item {
-    display: flex; align-items: center; gap: 16px;
-    padding: 16px 20px;
-    background: #fff;
-    border: 1px solid #dbdbdb;
-    border-radius: 8px;
-    transition: all 0.2s;
-  }
-  .demo-item:hover { border-color: #bdbdbd; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
-  .demo-icon {
-    width: 40px; height: 40px;
+  .logo-icon {
+    width: 36px; height: 36px;
     border-radius: 10px;
-    background: #fafafa;
-    border: 1px solid #dbdbdb;
-    display: flex; align-items: center; justify-content: center;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 18px;
-    flex-shrink: 0;
   }
-  .demo-item span { font-weight: 500; font-size: 15px; }
-  .demo-visual { position: relative; }
-  .phone-frame {
-    width: 100%; max-width: 320px;
+  .header-actions { display: flex; gap: 10px; align-items: center; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all .15s;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--blue); color: #fff; }
+  .btn-primary:hover { background: #0077cc; }
+  .btn-outline { background: transparent; color: var(--blue); border: 1px solid var(--blue); }
+  .btn-outline:hover { background: rgba(0,149,246,.08); }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 1100px;
     margin: 0 auto;
-    background: #000;
-    border-radius: 38px;
-    padding: 10px;
-    box-shadow: 
-      0 0 0 8px #1a1a1a,
-      0 0 0 9px #000,
-      0 40px 80px rgba(0,0,0,0.4);
+    padding: 80px 20px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
   }
-  .phone-screen {
-    background: #fff;
-    border-radius: 28px;
-    overflow: hidden;
-    aspect-ratio: 390/844;
+  .hero-text h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -.5px;
+    margin-bottom: 16px;
+  }
+  .hero-text h1 span {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-text p {
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+  .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mockup-phone {
+    width: 280px;
+    background: #000;
+    border-radius: 36px;
+    padding: 10px;
+    box-shadow: 0 0 0 6px #1a1a1a, 0 0 0 7px #000, 0 30px 60px rgba(0,0,0,.25);
     position: relative;
   }
-  .phone-content { padding: 24px; height: 100%; display: flex; flex-direction: column; gap: 20px; }
-  .phone-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid #dbdbdb; }
-  .phone-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #f43f5e, #a855f7); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
-  .phone-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .stat { text-align: center; padding: 16px; background: #fafafa; border: 1px solid #dbdbdb; border-radius: 12px; }
-  .stat-value { font-size: 22px; font-weight: 700; color: #262626; }
-  .stat-label { font-size: 10px; color: #8e8e8e; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
-  .phone-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .action-btn { padding: 16px; background: #fafafa; border: 1px solid #dbdbdb; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: #262626; font-size: 12px; font-weight: 500; transition: all 0.2s; }
-  .action-btn:hover { background: #f5f5f5; border-color: #bdbdbd; }
-  .action-btn.primary { background: #0095f6; border-color: #0095f6; color: #fff; }
-  .action-btn.primary:hover { background: #0077cc; }
-  .action-icon { font-size: 20px; }
+  .mockup-screen {
+    background: #fff;
+    border-radius: 26px;
+    overflow: hidden;
+    aspect-ratio: 9/16;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .mockup-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .mockup-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .mockup-stat {
+    background: #fafafa;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  .mockup-stat .val { font-size: 20px; font-weight: 700; color: #262626; }
+  .mockup-stat .lbl { font-size: 9px; color: #8e8e8e; text-transform: uppercase; letter-spacing: .5px; }
+  .mockup-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    flex: 1;
+  }
+  .mockup-action {
+    background: #fafafa;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .mockup-action.primary {
+    background: var(--gradient);
+    color: #fff;
+    border: none;
+  }
 
-  /* CTA */
-  .cta { max-width: 975px; margin: 0 auto; padding: 100px 20px; text-align: center; }
-  .cta h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 500; margin-bottom: 16px; }
-  .cta p { color: #8e8e8e; font-size: 16px; margin-bottom: 32px; }
+  /* ── FEATURES ── */
+  .section {
+    padding: 80px 20px;
+  }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .section-title h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 600;
+    letter-spacing: -.5px;
+    margin-bottom: 8px;
+  }
+  .section-title p { color: var(--muted); font-size: 16px; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .feature-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .feature-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.06); border-color: #ccc; }
+  .feature-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: #fafafa;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .feature-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+  .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* ── HOW IT WORKS ── */
+  .how-section { background: var(--bg-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    text-align: center;
+  }
+  .step-number {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--gradient);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .step h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .step p { font-size: 14px; color: var(--muted); }
+
+  /* ── DEMO MODULES ── */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .module-badge {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 16px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all .2s;
+    cursor: default;
+  }
+  .module-badge:hover { border-color: #ccc; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+  .module-badge .emoji { font-size: 28px; margin-bottom: 8px; }
+
+  /* ── CTA ── */
+  .cta {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 80px 20px;
+  }
+  .cta h2 {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 600;
+    letter-spacing: -.5px;
+    margin-bottom: 12px;
+  }
+  .cta p { color: var(--muted); font-size: 16px; margin-bottom: 28px; }
   .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-  /* Footer */
-  footer {
-    background: #fff;
-    border-top: 1px solid #dbdbdb;
-    padding: 60px 20px 30px;
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 20px 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
   }
-  .footer-inner { max-width: 975px; margin: 0 auto; }
-  .footer-grid { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
-  .footer-brand .logo-footer { margin-bottom: 20px; }
-  .footer-brand .logo-footer svg { width: 140px; height: auto; }
-  .footer-brand p { color: #8e8e8e; font-size: 14px; line-height: 1.6; max-width: 280px; margin-bottom: 24px; }
-  .social-links { display: flex; gap: 12px; }
-  .social-link { width: 36px; height: 36px; border-radius: 8px; background: #fafafa; border: 1px solid #dbdbdb; display: flex; align-items: center; justify-content: center; color: #8e8e8e; transition: all 0.2s; }
-  .social-link:hover { background: #f5f5f5; border-color: #bdbdbd; color: #262626; }
-  .social-link svg { width: 18px; height: 18px; }
-  .footer-col h4 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #8e8e8e; margin-bottom: 20px; }
-  .footer-col ul { display: flex; flex-direction: column; gap: 12px; }
-  .footer-col a { color: #262626; font-size: 14px; transition: color 0.2s; }
-  .footer-col a:hover { color: #8e8e8e; }
-  .footer-bottom { padding-top: 30px; border-top: 1px solid #dbdbdb; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  .footer-bottom p { color: #8e8e8e; font-size: 12px; }
-  .footer-legal { display: flex; gap: 24px; }
-  .footer-legal a { color: #8e8e8e; font-size: 12px; transition: color 0.2s; }
-  .footer-legal a:hover { color: #262626; }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 20px;
+    margin-bottom: 16px;
+  }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 12px; }
+  .footer-links a:hover { text-decoration: underline; color: var(--text); }
 
-  /* Responsive */
-  @media (max-width: 880px) {
-    .demo-content { grid-template-columns: 1fr; gap: 40px; }
-    .demo-visual { order: -1; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-    .footer-brand { grid-column: span 2; }
-    nav ul { display: none; }
+  /* ── RESPONSIVE ── */
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero-buttons { justify-content: center; }
+    .hero-visual { order: -1; }
+    .mockup-phone { width: 220px; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .modules-grid { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 600px) {
-    .footer-grid { grid-template-columns: 1fr; }
-    .footer-brand { grid-column: span 1; }
-    .footer-bottom { flex-direction: column; text-align: center; }
+  @media (max-width: 480px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .modules-grid { grid-template-columns: 1fr 1fr; }
+    .header-actions .btn-outline { display: none; }
   }
 </style>
 </head>
 <body>
 
-<header>
+<header class="header">
   <div class="header-inner">
-    <a href="/" class="logo-header" aria-label="Couple Hub - Início">
-      <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.153 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="#262626" stroke-width="2"/>
-        <ellipse cx="87.5" cy="25.5" rx="14.5" ry="14.5" stroke="#262626" stroke-width="2"/>
-        <circle cx="129.5" cy="13.5" r="4.5" fill="#262626"/>
-      </svg>
+    <a href="/" class="logo">
+      <div class="logo-icon">💑</div>
+      <span>Couple Hub</span>
     </a>
-    <nav>
-      <ul>
-        <li><a href="#features" class="active">Funcionalidades</a></li>
-        <li><a href="#demo">Demo</a></li>
-        <li><a href="#cta">Começar</a></li>
-      </ul>
-    </nav>
     <div class="header-actions">
-      <a href="/login" class="btn btn-ghost">Entrar</a>
-      <a href="/cadastro" class="btn btn-primary">Cadastrar</a>
+      <a href="/login" class="btn btn-outline">Entrar</a>
+      <a href="/cadastro" class="btn btn-primary">Criar conta grátis</a>
     </div>
   </div>
 </header>
 
 <main>
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-inner">
-      <div class="hero-logo">
-        <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.153 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="url(#grad)" stroke-width="2.5"/>
-          <ellipse cx="87.5" cy="25.5" rx="16" ry="16" stroke="url(#grad)" stroke-width="2.5"/>
-          <circle cx="129.5" cy="13.5" r="5" fill="url(#grad)"/>
-          <defs>
-            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#f43f5e"/>
-              <stop offset="50%" style="stop-color:#a855f7"/>
-              <stop offset="100%" style="stop-color:#06b6d4"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-      <h1 id="hero-title">Seu relacionamento, <span>organizado</span></h1>
-      <p>Fotos, momentos, contratos, metas, finanças e muito mais. Tudo em um só lugar, feito para dois.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Seu relacionamento, <span>organizado</span></h1>
+      <p>Fotos, momentos, contratos, metas, finanças e muito mais. Tudo em um só lugar, feito para vocês dois.</p>
       <div class="hero-buttons">
         <a href="/cadastro" class="btn btn-primary">Criar nossa conta grátis</a>
-        <a href="#demo" class="btn btn-ghost">Ver demonstração</a>
+        <a href="/login" class="btn btn-outline">Já tenho conta</a>
       </div>
     </div>
-  </section>
-
-  <section id="features" class="features" aria-labelledby="features-title">
-    <div class="section-header">
-      <span class="section-tag">Tudo o que vocês precisam</span>
-      <h2 id="features-title">Funcionalidades que<br>aproximam vocês</h2>
-    </div>
-    <div class="features-grid">
-      <article class="feature-card">
-        <div class="feature-icon">📸</div>
-        <h3>Álbum Compartilhado</h3>
-        <p>Fotos e vídeos ilimitados com upload direto. Linha do tempo automática dos melhores momentos.</p>
-        <div class="feature-tags">
-          <span class="feature-tag">Upload direto</span>
-          <span class="feature-tag">Timeline automática</span>
-          <span class="feature-tag">Privado</span>
-        </div>
-      </article>
-      <article class="feature-card">
-        <div class="feature-icon">📜</div>
-        <h3>Contrato do Casal</h3>
-        <p>Regras, acordos, proibições e quebras de contrato formalizadas. Assinatura digital entre vocês.</p>
-        <div class="feature-tags">
-          <span class="feature-tag">Regras personalizadas</span>
-          <span class="feature-tag">Assinatura digital</span>
-          <span class="feature-tag">Histórico de quebras</span>
-        </div>
-      </article>
-      <article class="feature-card">
-        <div class="feature-icon">🎯</div>
-        <h3>Metas & Sonhos</h3>
-        <p>Acompanhem objetivos juntos com barras de progresso. Do curto prazo aos grandes sonhos.</p>
-        <div class="feature-tags">
-          <span class="feature-tag">Progresso visual</span>
-          <span class="feature-tag">Categorias</span>
-          <span class="feature-tag">Notificações</span>
-        </div>
-      </article>
-      <article class="feature-card">
-        <div class="feature-icon">💰</div>
-        <h3>Finanças Compartilhadas</h3>
-        <p>Controle de gastos, quem pagou o quê, totais por categoria. Transparência total.</p>
-        <div class="feature-tags">
-          <span class="feature-tag">Divisão automática</span>
-          <span class="feature-tag">Relatórios</span>
-          <span class="feature-tag">Recibos</span>
-        </div>
-      </article>
-      <article class="feature-card">
-        <div class="feature-icon">📅</div>
-        <h3>Agenda & Datas Especiais</h3>
-        <p>Aniversários, comemorações, viagens. Recorrência anual, mensal ou única. Nunca esqueça.</p>
-        <div class="feature-tags">
-          <span class="feature-tag">Recorrência</span>
-          <span class="feature-tag">Lembretes</span>
-          <span class="feature-tag">Categorias</span>
-        </div>
-      </article>
-      <article class="feature-card">
-        <div class="feature-icon">❤️</div>
-        <h3>Proximidade & Avatar 3D</h3>
-        <p>Medidor de conexão em tempo real + avatar interativo do casal com Three.js. Único no mercado.</p>
-        <div class="feature-tags">
-          <span class="feature-tag">Three.js 3D</span>
-          <span class="feature-tag">Tempo real</span>
-          <span class="feature-tag">Personalizável</span>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section id="demo" class="demo" aria-labelledby="demo-title">
-    <div class="demo-inner">
-      <div class="demo-content">
-        <div class="demo-text">
-          <h2 id="demo-title">Veja como funciona<br>no dia a dia</h2>
-          <p>Interface limpa, modo claro elegante e tudo sincronizado entre os dois celulares.</p>
-          <div class="demo-list">
-            <div class="demo-item">
-              <div class="demo-icon">📱</div>
-              <span>Design mobile-first, funciona perfeitamente no celular</span>
-            </div>
-            <div class="demo-item">
-              <div class="demo-icon">🔒</div>
-              <span>Dados criptografados, só vocês têm acesso</span>
-            </div>
-            <div class="demo-item">
-              <div class="demo-icon">⚡</div>
-              <span>Tempo real — mudanças aparecem instantaneamente</span>
-            </div>
-            <div class="demo-item">
-              <div class="demo-icon">🎨</div>
-              <span>Temas personalizáveis, cores do casal</span>
-            </div>
+    <div class="hero-visual">
+      <div class="mockup-phone">
+        <div class="mockup-screen">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="mockup-avatar">R&M</div>
+            <div style="font-weight:600;font-size:13px">Couple Hub</div>
           </div>
-        </div>
-        <div class="demo-visual">
-          <div class="phone-frame">
-            <div class="phone-screen">
-              <div class="phone-content">
-                <div class="phone-header">
-                  <div class="phone-avatar">R&M</div>
-                  <div style="font-weight:600;font-size:14px">Couple Hub</div>
-                </div>
-                <div class="phone-stats">
-                  <div class="stat">
-                    <div class="stat-value">847</div>
-                    <div class="stat-label">Dias</div>
-                  </div>
-                  <div class="stat">
-                    <div class="stat-value">234</div>
-                    <div class="stat-label">Fotos</div>
-                  </div>
-                  <div class="stat">
-                    <div class="stat-value">12</div>
-                    <div class="stat-label">Metas</div>
-                  </div>
-                </div>
-                <div class="phone-actions">
-                  <button class="action-btn"><span class="action-icon">📸</span>Fotos</button>
-                  <button class="action-btn"><span class="action-icon">🎯</span>Metas</button>
-                  <button class="action-btn"><span class="action-icon">💰</span>Gastos</button>
-                  <button class="action-btn"><span class="action-icon">📜</span>Contrato</button>
-                  <button class="action-btn primary"><span class="action-icon">❤️</span>Proximidade: 87%</button>
-                  <button class="action-btn"><span class="action-icon">⚙️</span>Config</button>
-                </div>
-              </div>
-            </div>
+          <div class="mockup-stats">
+            <div class="mockup-stat"><div class="val">847</div><div class="lbl">Dias juntos</div></div>
+            <div class="mockup-stat"><div class="val">234</div><div class="lbl">Fotos</div></div>
+            <div class="mockup-stat"><div class="val">12</div><div class="lbl">Metas</div></div>
+          </div>
+          <div class="mockup-actions">
+            <div class="mockup-action"><span style="font-size:20px">📸</span>Fotos</div>
+            <div class="mockup-action"><span style="font-size:20px">🎯</span>Metas</div>
+            <div class="mockup-action"><span style="font-size:20px">💰</span>Gastos</div>
+            <div class="mockup-action"><span style="font-size:20px">📜</span>Contrato</div>
+            <div class="mockup-action primary" style="grid-column:span 2"><span style="font-size:20px">❤️</span>Proximidade: 87%</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="cta" class="cta" aria-labelledby="cta-title">
-    <h2 id="cta-title">Comecem hoje mesmo</h2>
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-title">
+        <h2>Funcionalidades do Couple Hub</h2>
+        <p>Cada ferramenta pensada para fortalecer a conexão e organizar a vida a dois</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📸</div>
+          <h3>Álbum Compartilhado</h3>
+          <p>Fotos e vídeos ilimitados com upload direto. Linha do tempo automática dos melhores momentos.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📜</div>
+          <h3>Contrato do Casal</h3>
+          <p>Regras, acordos, proibições e quebras de contrato formalizadas com assinatura digital.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Metas & Sonhos</h3>
+          <p>Acompanhem objetivos juntos com barras de progresso. Do curto prazo aos grandes sonhos.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>Finanças Compartilhadas</h3>
+          <p>Controle de gastos com categoria, quem pagou, totais automáticos e recibos.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3>Agenda Especial</h3>
+          <p>Datas comemorativas com recorrência. Nunca mais esqueça um aniversário ou data importante.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">❤️</div>
+          <h3>Proximidade & Avatar 3D</h3>
+          <p>Medidor de conexão + avatar interativo do casal em Three.js. Exclusivo do Couple Hub.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section how-it">
+    <div class="section-inner">
+      <div class="section-title">
+        <h2>Como começar</h2>
+        <p>Três passos simples para organizar seu relacionamento</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Crie sua conta</h3>
+          <p>Cadastro rápido em 30 segundos. Sem cartão de crédito. Grátis para começar.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Configure o casal</h3>
+          <p>Nomes, tipo de relacionamento, data de início. Personalize tudo ao gosto de vocês.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Comecem a usar</h3>
+          <p>18 módulos, dashboard completo, avatar 3D, tudo sincronizado e fácil de usar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL 18 MODULES -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-title">
+        <h2>Todos os módulos</h2>
+        <p>18 módulos completos para gerenciar cada aspecto do relacionamento</p>
+      </div>
+      <div class="modules-grid">
+        <div class="module-badge"><div class="emoji">🏠</div>Dashboard</div>
+        <div class="module-badge"><div class="emoji">💑</div>Cartão do Casal</div>
+        <div class="module-badge"><div class="emoji">❤️</div>Proximidade</div>
+        <div class="module-badge"><div class="emoji">📖</div>Sobre Nós</div>
+        <div class="module-badge"><div class="emoji">📸</div>Fotos</div>
+        <div class="module-badge"><div class="emoji">🎥</div>Vídeos</div>
+        <div class="module-badge"><div class="emoji">✨</div>Momentos</div>
+        <div class="module-badge"><div class="emoji">📜</div>Contrato do Casal</div>
+        <div class="module-badge"><div class="emoji">🤝</div>Acordos</div>
+        <div class="module-badge"><div class="emoji">🚫</div>Proibições</div>
+        <div class="module-badge"><div class="emoji">📄</div>Recibos</div>
+        <div class="module-badge"><div class="emoji">🎯</div>Metas</div>
+        <div class="module-badge"><div class="emoji">💭</div>Sonhos</div>
+        <div class="module-badge"><div class="emoji">💰</div>Gastos</div>
+        <div class="module-badge"><div class="emoji">📅</div>Agenda</div>
+        <div class="module-badge"><div class="emoji">💡</div>Dicas</div>
+        <div class="module-badge"><div class="emoji">🌐</div>Redes Sociais</div>
+        <div class="module-badge"><div class="emoji">⚙️</div>Configurações</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>Comecem hoje mesmo</h2>
     <p>Leva 30 segundos. Sem cartão de crédito. Grátis para o essencial.</p>
     <div class="cta-buttons">
-      <a href="/cadastro" class="btn btn-primary" style="padding: 14px 28px; font-size: 15px;">Criar nossa conta grátis</a>
-      <a href="/login" class="btn btn-ghost" style="padding: 14px 28px; font-size: 15px;">Já tenho conta</a>
+      <a href="/cadastro" class="btn btn-primary">Criar nossa conta grátis</a>
+      <a href="/login" class="btn btn-outline">Já tenho conta</a>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="/" class="logo-footer" aria-label="Couple Hub - Início">
-          <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.153 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="#262626" stroke-width="2"/>
-            <ellipse cx="87.5" cy="25.5" rx="14.5" ry="14.5" stroke="#262626" stroke-width="2"/>
-            <circle cx="129.5" cy="13.5" r="4.5" fill="#262626"/>
-          </svg>
-        </a>
-        <p>O primeiro hub completo para casais organizarem sua vida juntos. Feito com carinho para fortalecer conexões.</p>
-        <div class="social-links">
-          <a href="#" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-          <a href="#" class="social-link" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
-          <a href="#" class="social-link" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Produto</h4>
-        <ul>
-          <li><a href="#features">Funcionalidades</a></li>
-          <li><a href="#demo">Demo</a></li>
-          <li><a href="#">Preços</a></li>
-          <li><a href="#">Changelog</a></li>
-          <li><a href="#">Roadmap</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Empresa</h4>
-        <ul>
-          <li><a href="#">Sobre</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Carreiras</a></li>
-          <li><a href="#">Imprensa</a></li>
-          <li><a href="#">Contato</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacidade</a></li>
-          <li><a href="#">Termos</a></li>
-          <li><a href="#">Cookies</a></li>
-          <li><a href="#">Segurança</a></li>
-          <li><a href="#">LGPD</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2024 Couple Hub — Direitos reservados: RUBENS PEREIRA FERNANDES</p>
-      <div class="footer-legal">
-        <a href="#">Status</a>
-        <a href="#">Suporte</a>
-        <a href="#">Comunidade</a>
-      </div>
-    </div>
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#">Sobre</a>
+    <a href="#">Blog</a>
+    <a href="#">Privacidade</a>
+    <a href="#">Termos</a>
+    <a href="#">Cookies</a>
+    <a href="#">Suporte</a>
   </div>
+  <p>© 2024 Couple Hub — Direitos reservados: RUBENS PEREIRA FERNANDES</p>
 </footer>
 
 </body>

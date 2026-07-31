@@ -5,36 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cadastrar • Couple Hub</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background: #fafafa;
     color: #262626;
     line-height: 1.4;
     -webkit-font-smoothing: antialiased;
-  }
-  .container {
-    min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 24px;
   }
-  .main-card {
+  .card {
     background: #fff;
     border: 1px solid #dbdbdb;
     border-radius: 8px;
-    padding: 40px;
+    padding: 44px 40px 32px;
     width: 100%;
     max-width: 350px;
     text-align: center;
   }
-  .logo { margin-bottom: 36px; }
+  .logo { margin-bottom: 40px; }
   .logo svg { width: 175px; height: 51px; }
-  .form-group { margin-bottom: 6px; text-align: left; }
-  .form-group label { display: none; }
-  .form-group input {
+  .input-wrap { margin-bottom: 6px; position: relative; }
+  .input-wrap input {
     width: 100%;
     padding: 14px 16px;
     background: #fafafa;
@@ -43,17 +40,13 @@
     font-size: 16px;
     color: #262626;
     outline: none;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color .2s, background .2s;
   }
-  .form-group input:focus {
-    border-color: #bdbdbd;
-    background: #fff;
-  }
-  .form-group input::placeholder { color: #8e8e8e; }
-  .form-group input[type="password"] { padding-right: 48px; }
-  .form-group .toggle-password {
+  .input-wrap input:focus { border-color: #bdbdbd; background: #fff; }
+  .input-wrap input::placeholder { color: #8e8e8e; }
+  .toggle-pw {
     position: absolute;
-    right: 14px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -63,11 +56,10 @@
     padding: 4px;
     display: flex;
     align-items: center;
-    justify-content: center;
   }
-  .form-group .toggle-password:hover { color: #262626; }
-  .form-group .toggle-password svg { width: 20px; height: 20px; }
-  .btn-signup {
+  .toggle-pw:hover { color: #262626; }
+  .toggle-pw svg { width: 20px; height: 20px; }
+  .btn-blue {
     width: 100%;
     padding: 12px;
     margin-top: 12px;
@@ -78,27 +70,21 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background .2s;
   }
-  .btn-signup:hover { background: #0077cc; }
-  .btn-signup:disabled { background: #b0d9f5; cursor: not-allowed; }
+  .btn-blue:hover { background: #0077cc; }
+  .btn-blue:disabled { background: #b0d9f5; cursor: not-allowed; }
   .divider {
     display: flex;
     align-items: center;
-    margin: 20px 0;
+    margin: 22px 0;
     color: #8e8e8e;
     font-size: 13px;
     font-weight: 600;
   }
-  .divider::before,
-  .divider::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: #dbdbdb;
-  }
+  .divider::before, .divider::after { content:""; flex:1; height:1px; background:#dbdbdb; }
   .divider span { padding: 0 16px; }
-  .btn-facebook {
+  .btn-fb {
     width: 100%;
     padding: 10px;
     border: none;
@@ -112,10 +98,10 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: color 0.2s;
+    transition: color .2s;
   }
-  .btn-facebook:hover { color: #2d4373; }
-  .btn-facebook svg { width: 18px; height: 18px; }
+  .btn-fb:hover { color: #2d4373; }
+  .btn-fb svg { width: 18px; height: 18px; }
   .terms {
     text-align: center;
     font-size: 12px;
@@ -123,9 +109,9 @@
     line-height: 1.6;
     margin-top: 24px;
   }
-  .terms a { color: #00376b; text-decoration: none; font-weight: 600; }
+  .terms a { color: #00376b; text-decoration: none; font-weight: 500; }
   .terms a:hover { text-decoration: underline; }
-  .mensagem {
+  .msg {
     margin: 12px 0;
     padding: 12px 16px;
     border-radius: 4px;
@@ -133,164 +119,135 @@
     text-align: center;
     display: none;
   }
-  .mensagem:not(:empty) { display: block; }
-  .mensagem.erro { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-  .mensagem.sucesso { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
-  .login-card {
+  .msg:not(:empty) { display: block; }
+  .msg.erro { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .msg.ok { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+  .card2 {
     background: #fff;
     border: 1px solid #dbdbdb;
     border-radius: 8px;
     padding: 20px;
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
     margin-top: 16px;
     font-size: 14px;
-    color: #262626;
   }
-  .login-card a { color: #0095f6; font-weight: 600; text-decoration: none; }
-  .login-card a:hover { text-decoration: underline; }
-  .app-links { margin-top: 28px; text-align: center; }
-  .app-links p { font-size: 14px; color: #8e8e8e; margin-bottom: 16px; }
-  .app-buttons { display: flex; justify-content: center; gap: 12px; }
-  .app-buttons img { height: 40px; }
-  footer { padding: 20px; text-align: center; }
+  .card2 a { color: #0095f6; font-weight: 600; text-decoration: none; }
+  .card2 a:hover { text-decoration: underline; }
+  .app { margin-top: 28px; text-align: center; }
+  .app p { font-size: 14px; color: #8e8e8e; margin-bottom: 16px; }
+  .app img { height: 40px; margin: 0 6px; }
+  footer { padding: 20px; text-align: center; margin-top: 24px; }
   .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin-bottom: 16px; }
   .footer-links a { color: #8e8e8e; text-decoration: none; font-size: 12px; }
   .footer-links a:hover { text-decoration: underline; }
-  .footer-copyright { color: #8e8e8e; font-size: 12px; }
-  @media (max-width: 400px) {
-    .main-card { padding: 32px 24px; }
-    .logo svg { width: 140px; height: 40px; }
-  }
+  .footer-cr { color: #8e8e8e; font-size: 12px; }
+  @media (max-width: 400px) { .card { padding: 32px 24px 28px; } .logo svg { width: 140px; height: 40px; } }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="main-card">
-    <div class="logo">
-      <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.153 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="#262626" stroke-width="2"/>
-        <ellipse cx="87.5" cy="25.5" rx="14.5" ry="14.5" stroke="#262626" stroke-width="2"/>
-        <circle cx="129.5" cy="13.5" r="4.5" fill="#262626"/>
-      </svg>
+<div class="card">
+  <div class="logo">
+    <svg viewBox="0 0 175 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.5 0C7.8475 0 0 7.8475 0 17.5V33.5C0 43.1525 7.8475 51 17.5 51H157.5C167.152 51 175 43.1525 175 33.5V17.5C175 7.8475 167.153 0 157.5 0H17.5Z" stroke="url(#grad)" stroke-width="2.2"/>
+      <ellipse cx="87.5" cy="25.5" rx="15" ry="15" stroke="url(#grad)" stroke-width="2.2"/>
+      <circle cx="129.5" cy="13.5" r="4.5" fill="url(#grad)"/>
+      <defs>
+        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f09433"/>
+          <stop offset="25%" stop-color="#e6683c"/>
+          <stop offset="50%" stop-color="#dc2743"/>
+          <stop offset="75%" stop-color="#cc2366"/>
+          <stop offset="100%" stop-color="#bc1888"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  <form id="frm">
+    <div class="input-wrap">
+      <input type="text" id="nome" placeholder="Nome completo" autocomplete="name" required>
     </div>
-
-    <form id="formCadastro">
-      <div class="form-group">
-        <label for="nome">Nome completo</label>
-        <input type="text" id="nome" name="nome" placeholder="Nome completo" autocomplete="name" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Email" autocomplete="email" required>
-      </div>
-      <div class="form-group" style="position: relative;">
-        <label for="senha">Senha</label>
-        <input type="password" id="senha" name="senha" placeholder="Senha (mín. 6 caracteres)" autocomplete="new-password" required minlength="6">
-        <button type="button" class="toggle-password" id="togglePass" aria-label="Mostrar senha">
-          <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-        </button>
-      </div>
-      <div id="mensagem" class="mensagem"></div>
-      <button type="submit" class="btn-signup" id="btnCadastrar">Cadastrar</button>
-    </form>
-
-    <div class="divider"><span>OU</span></div>
-
-    <button type="button" class="btn-facebook" id="btnFacebook">
-      <svg viewBox="0 0 24 24" fill="#385185">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-      </svg>
-      Cadastrar com o Facebook
-    </button>
-
-    <p class="terms">
-      Ao cadastrar, você concorda com nossos <a href="#">Termos de Uso</a>, 
-      <a href="#">Política de Privacidade</a> e <a href="#">Política de Cookies</a>.
-    </p>
-  </div>
-
-  <div class="login-card">
-    Já tem conta? <a href="/login">Entrar</a>
-  </div>
-
-  <div class="app-links">
-    <p>Baixe o app</p>
-    <div class="app-buttons">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Google_Play_Store_badge_EN.svg" alt="Google Play">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/App_Store_badge_en.svg" alt="App Store">
+    <div class="input-wrap">
+      <input type="email" id="email" placeholder="Email" autocomplete="email" required>
     </div>
-  </div>
+    <div class="input-wrap">
+      <input type="password" id="senha" placeholder="Senha (mín. 6 caracteres)" autocomplete="new-password" required minlength="6">
+      <button type="button" class="toggle-pw" id="togglePw" aria-label="Mostrar senha">
+        <svg id="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
+    </div>
+    <div id="msg" class="msg"></div>
+    <button type="submit" class="btn-blue" id="btn">Cadastrar</button>
+  </form>
+  <div class="divider"><span>OU</span></div>
+  <button type="button" class="btn-fb">
+    <svg viewBox="0 0 24 24" fill="#385185"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    Cadastrar com o Facebook
+  </button>
+  <p class="terms">
+    Ao cadastrar, você concorda com nossos <a href="#">Termos de Uso</a>, 
+    <a href="#">Política de Privacidade</a> e <a href="#">Política de Cookies</a>.
+  </p>
 </div>
-
+<div class="card2">
+  Já tem conta? <a href="/login">Entrar</a>
+</div>
+<div class="app">
+  <p>Baixe o app</p>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Google_Play_Store_badge_EN.svg" alt="Google Play" style="height:40px">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/App_Store_badge_en.svg" alt="App Store" style="height:40px">
+</div>
 <footer>
   <div class="footer-links">
-    <a href="#">Meta</a>
-    <a href="#">Sobre</a>
-    <a href="#">Blog</a>
-    <a href="#">Empregos</a>
-    <a href="#">Ajuda</a>
-    <a href="#">API</a>
-    <a href="#">Privacidade</a>
-    <a href="#">Termos</a>
-    <a href="#">Melhores contas</a>
-    <a href="#">Hashtags</a>
-    <a href="#">Idioma</a>
+    <a href="#">Meta</a><a href="#">Sobre</a><a href="#">Blog</a><a href="#">Empregos</a><a href="#">Ajuda</a><a href="#">API</a>
+    <a href="#">Privacidade</a><a href="#">Termos</a><a href="#">Contas</a><a href="#">Hashtags</a><a href="#">Idioma</a>
   </div>
-  <p class="footer-copyright">© 2024 Couple Hub — Direitos reservados: RUBENS PEREIRA FERNANDES</p>
+  <p class="footer-cr">© 2024 Couple Hub — Direitos reservados: RUBENS PEREIRA FERNANDES</p>
 </footer>
-
 <script>
-document.getElementById('formCadastro').addEventListener('submit', async (e) => {
+document.getElementById('frm').addEventListener('submit', async e => {
   e.preventDefault();
-  const btn = document.getElementById('btnCadastrar');
-  const msg = document.getElementById('mensagem');
-  const nome = document.getElementById('nome').value;
-  const email = document.getElementById('email').value;
-  const senha = document.getElementById('senha').value;
-
+  const btn = document.getElementById('btn');
+  const msg = document.getElementById('msg');
   btn.disabled = true;
   btn.textContent = 'Cadastrando...';
   msg.textContent = '';
-  msg.className = 'mensagem';
-
+  msg.className = 'msg';
   try {
     const res = await fetch('/api/cadastro', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ nome, email, senha })
+      body: JSON.stringify({ nome: document.getElementById('nome').value, email: document.getElementById('email').value, senha: document.getElementById('senha').value })
     });
     const data = await res.json();
-
     if (res.ok) {
-      msg.className = 'mensagem sucesso';
+      msg.className = 'msg ok';
       msg.textContent = data.mensagem || 'Conta criada!';
       setTimeout(() => window.location.href = '/login', 1200);
     } else {
-      msg.className = 'mensagem erro';
+      msg.className = 'msg erro';
       msg.textContent = data.erro || 'Erro ao cadastrar';
       btn.disabled = false;
       btn.textContent = 'Cadastrar';
     }
-  } catch (err) {
-    msg.className = 'mensagem erro';
+  } catch(err) {
+    msg.className = 'msg erro';
     msg.textContent = 'Erro de conexão. Tente novamente.';
     btn.disabled = false;
     btn.textContent = 'Cadastrar';
   }
 });
-
-// Toggle password visibility
-const togglePass = document.getElementById('togglePass');
-const senhaInput = document.getElementById('senha');
-const eyeIcon = document.getElementById('eyeIcon');
-
-togglePass.addEventListener('click', () => {
-  const isPassword = senhaInput.type === 'password';
-  senhaInput.type = isPassword ? 'text' : 'password';
-  eyeIcon.innerHTML = isPassword
+// Toggle password
+document.getElementById('togglePw').addEventListener('click', () => {
+  const pw = document.getElementById('senha');
+  const eye = document.getElementById('toggle');
+  const show = pw.type === 'password';
+  pw.type = show ? 'text' : 'password';
+  eye.innerHTML = show
     ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
     : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
 });
